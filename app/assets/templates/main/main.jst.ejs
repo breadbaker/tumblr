@@ -31,7 +31,7 @@
   <maincontent>
     <article id='quick-dash' class='group'>
       <userlogo>
-        <img src='logo/irina.jpg'>
+        <img src='<%= Tumblr.user.get("avatar") %>'>
       </userlogo>
       <quotebubble class='group'>
         <cornerangle></cornerangle>
@@ -88,7 +88,7 @@
       <ul>
         <li>
           <username>
-            EL: Aspiring CODER
+            <%= Tumblr.user.get('username') %>
           </username>
         </li>
         <li>

@@ -22,7 +22,7 @@
 ]
 
 def add_photo(post)
-  post.content_type = "Text"
+  post.content_type = "Photo"
   Photo.create({
     post_id: post.id,
     url: @photo_urls.sample,
@@ -39,22 +39,23 @@ def add_text(post)
     title: Faker::Company.bs
   })
 end
-
 #build avatar list
+require 'open-uri'
 doc = Nokogiri::HTML(open("http://www.picgifs.com/avatars/fruit/?s=added&i=100"))
 imgs = doc.css('img').map { |img| img['src']}
 imgs.each do |i|
-  puts i
   if i.include?('http') && i.include?('jpg')
     Avatar.create({url: i})
   end
 end
 
+
 4.times do |i|
 user = User.create({
   username: "user#{i+1}",
   password: 'password',
-  email: "fake#{i}@fake.com"
+  email: "fake#{i}@fake.com",
+  avatar: Avatar.first(offset: rand(Avatar.count))
 })
 
   (44 + Random.rand(12)).times do
@@ -74,18 +75,18 @@ end
 
 #
 # # get images
-# require 'open-uri'
+#
 # subs = ['earthporn', 'gentlemanboners','aww','futureporn']
 #
 # subs.each do |sub|
 #   doc = Nokogiri::HTML(open("http://www.reddit.com/r/#{sub}"))
 #   links = doc.css('a.title').map { |link| link['href']}
-#   @photo_urls.each do |link|
-#     if link.include?('imgur')
-#       codeurl = link.split('/')
-#       code = codeurl.last.split('.').first
-#       Background.create({url: code})
-#     end
-#   end
+  @photo_urls.each do |link|
+    if link.include?('imgur')
+      codeurl = link.split('/')
+      code = codeurl.last.split('.').first
+      Background.create({url: code})
+    end
+  end
 # end
 

@@ -358,3 +358,22 @@ footerlr div:nth-of-type(2) span{
 .right {
   float: right;
 }
+
+texttitle, texttext{
+  display: block;
+
+}
+
+texttitle{
+  font-size:18px;
+  font-weight: bold;
+}
+
+article{
+  margin-bottom: 14px;
+}
+
+img.photourl {
+  width:100%;
+  height: auto;
+}

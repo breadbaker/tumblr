@@ -4,30 +4,18 @@ Tumblr.Views.MainView = Backbone.View.extend({
 
   },
 
-  template: JST['main/main'],
-
-  events: {
-    'loginholder .signin': 'signin',
-
-    'loginholder .signup': 'signup'
-  },
-
-  addHandlers: function(){
-    var that = this;
-    $('papael').delegate('.changeMode','click', function(){
-      that.toggleType();
-    });
-    $('papael').delegate('.signup', 'click', function(e){
-      that.send(e);
-    });
-    $('papael').delegate('.signin', 'click', function(e){
-      that.signin(e);
-    });
-  },
-
   render: function(){
-    var that = this;
-    Tumblr.papaEl.html(this.template({
-    }));
+
+    $('papael').html(JST['main/main']);
+
+    var renderedPost;
+
+    _.each(Tumblr.userPosts.models, function(post){
+      renderedPost = JST['posts/'+post.attributes.content_type]({
+        post: post.get('content'),
+        avatar: "http://www.picgifs.com/avatars/avatars/fruit/avatars-fruit-081919.jpg"
+      });
+      $('maincontent').append(renderedPost);
+    });
   }
 });
