@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tumblr</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <backgroundimg>
+    <img src=<%= back_img %>>
+  </backgroundimg>
+<loginholder>
+  <biglogo>tumblr.</biglogo>
+    <%= yield %>
+
+</loginholder>
+<footerlr class='white'>
+  <div>
+  <span>Terms</span>
+  <span>Privacy</span>
+</div>
+<div class='right'>
+  <span>Posted by dan-ah</span>
+  <img src='/avatar.png'>
+</div>
+</footerlr>
+</body>
+</html>

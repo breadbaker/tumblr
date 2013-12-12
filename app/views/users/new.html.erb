@@ -1,0 +1,14 @@
+<sublrtitle class='white helv'>
+  Follow the blogs you've been hearing about.  Share the things that you love.
+</sublrtitle>
+
+<form action='<%= users_url %>' method='post'>
+  <roundform>
+    <input type='email' placeholder='Email' name='user[email]'>
+    <input type='password' placeholder='Password' name='user[password]'>
+    <input type='username' plaseholder='Username' name='user[username]'>
+  </roundform>
+  <button class='submit white' type='submit'>Sign Up</button>
+</form>
+
+<a class='white helv' href='<%= new_session_url %>'>Log in to your dashboard</a>

@@ -1,0 +1,9 @@
+<form action='<%= sessions_url %>' method='post'>
+  <roundform>
+    <input type='email' placeholder='Account email address' name='user[email]'>
+  </roundform>
+  <button class='cancel grey'>Nevermind</button>
+  <button class='submit white' type='submit'>Reset Password</button>
+</form>
+
+<a class='white helv' href='<%= new_user_url %>'>Sign up for a new account</a>

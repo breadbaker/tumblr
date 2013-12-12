@@ -11,3 +11,350 @@
  *= require_self
  *= require_tree .
  */
+
+html, body {
+  z-index:2;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+}
+
+backgroundimg {
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+backgroundimg img {
+  width: 100%;
+  height: 100%;
+}
+
+loginholder {
+  display: block;
+  z-index:2;
+  position: relative;
+  width: 400px;
+  top: 300px;
+  text-align:center;
+
+  min-height: 300px;
+  margin: auto;
+}
+
+loginholder a {
+
+}
+
+body {
+  background-color: rgb(51,81,110);
+}
+
+.group:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+input:focus {
+    outline-width: 0;
+}
+
+
+.red{
+  color: rgba(220,110,83,1);
+}
+.blue{
+  color: rgba(92,176,220,1);
+}
+.green{
+  color: rgba(103,149,194,1);
+}
+.orange{
+  color: rgba(243,163,67,1);
+}
+.purple{
+  color: rgba(176,138,200,1);
+}
+.grey{
+  color: rgba(130,141,149,1);
+}
+.white{
+  color: white;
+}
+
+.helv {
+  font: normal 14px/1.4 "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;
+}
+
+
+navLeft {
+  display: block;
+  float: left;
+  font-size: 90px;
+  color: white;
+}
+
+navRight {
+  display: block;
+  float: right;
+}
+
+navRight span {
+
+  padding: 15px;
+  font-size: 26px;
+  color: white;
+  opacity: 0.5;
+}
+
+nav {
+  line-height: 90px;
+  display: block;
+  width: 800px;
+  margin: auto;
+}
+
+searchBar {
+  border: 1px solid rgba(0,0,0,.2);
+  width: 210px;
+  background-image: url(magb.png);
+  background-size: 20px;
+  background-position: 10px 6px;
+  background-repeat: no-repeat;
+  background-color: rgb(44, 71, 98);
+  border-radius: 15px;
+  padding: 7px;
+
+/*  is there a better way?*/
+  opacity: 0.5;
+}
+
+searchBar input {
+  background-color: rgb(44, 71, 98);
+  margin-left: 40px;
+  width: 160px;
+  margin-top: 5px;
+  color: white;
+  border: none;
+  font-size: 14px;
+}
+
+mainwrapper {
+  display: block;
+  width: 800px;
+  margin: auto;
+  background-color: rgb(44, 71, 98);
+  border-radius: 15px;
+}
+
+maincontent {
+  display: block;
+  float: left;
+  width: 520px;
+}
+
+sidebar {
+  display: block;
+  float: right;
+  color: white;
+  width: 220px;
+  margin: 20px;
+}
+
+mainitems {
+  display: block;
+}
+
+mainitems ul li {
+  line-height: 25px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  font-size: 18px;
+  padding: 5px;
+  color: rgba(255,255,255,0.65);
+
+}
+
+mainitems ul li:hover {
+  color: rgba(255,255,255,1);
+}
+
+mainitems ul li i {
+  padding-right: 8px;
+}
+
+maincontent {
+  padding:10px;
+}
+
+maincontent article {
+  width: 100%;
+}
+
+#quick-dash ul li i{
+  font-size: 32px;
+}
+#quick-dash ul li{
+  float:left;
+  border-left:1px solid grey;
+}
+#quick-dash ul li:nth-of-type(1){
+  border-left:none;
+}
+#quick-dash ul {
+  margin-top: 0px;
+}
+#quick-dash quotebubble {
+  height: 60px;
+}
+
+
+.float-left{
+  float:left;
+}
+.float-right{
+  float:right;
+}
+quickitem p{
+  margin-top: 3px;
+  text-align:center;
+}
+quickitem {
+  float: left;
+  padding-left: 11px;
+
+  padding-right: 10px;
+  height: 50px;
+}
+userlogo {
+  display:block;
+  float: left;
+  padding: 10px;
+  width: 70px;
+}
+quotebubble {
+  background-color: white;
+  display: block;
+  float:left;
+  padding:10px;
+  width: 400px;
+  margin-left: 10px;
+  border-radius: 8px;
+  position:relative;
+}
+
+cornerangle {
+  display: block;
+  position: absolute;
+  border: 8px solid white;
+  left: -8px;
+  top: 35px;
+  -webkit-transform: rotate(-45deg);
+}
+
+userlogo img {
+  width: 70px;
+  height: auto;
+  border-radius: 5px;
+}
+
+biglogo {
+  font-size: 90px;
+  color: white;
+  font-family: 'Helvetica Neue', HelveticaNeue, Helvetica, Arial, sans-serif;
+}
+
+
+sublrtitle {
+  display: block;
+  font-size: 18px !important;
+  font-weight: none;
+  margin-bottom:16px;
+}
+
+roundform {
+  display:block;
+  width: 240px;
+  margin:auto;
+}
+roundform input {
+  height: 32px;
+  margin:0px;
+  padding:4px;
+  font-size:14px;
+  display:block;
+  width:100%;
+  border: 1px solid grey;
+}
+roundform input:nth-of-type(1) {
+  border-bottom:none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+roundform input:nth-last-of-type(1) {
+  border-top:none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+button.submit {
+  width: 248px;
+  padding:4px;
+  border-radius: 8px;
+  margin:auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 13px;
+  line-height: 32px;
+  font-size: 14px;
+  border:none;
+  background-color: rgb( 82,158,204);
+}
+footerlr {
+  z-index: 2;
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+}
+footerlr div:nth-of-type(2) {
+
+  margin-top: -30px;
+  margin-right: 20px;
+
+}
+footerlr div:nth-of-type(1) {
+  margin-left: 20px;
+
+}
+footerlr div:nth-of-type(1) span:nth-of-type(1){
+  border-right: 1px -solid white;
+
+}
+footerlr div:nth-of-type(2) span{
+  vertical-align:middle;
+}
+
+.right {
+  float: right;
+}

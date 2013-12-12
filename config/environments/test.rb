@@ -34,4 +34,8 @@ Tumblr::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.log_level = :debug
+
+  config.middleware.use RackSessionAccess::Middleware
 end

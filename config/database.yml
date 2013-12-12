@@ -17,7 +17,7 @@ development:
   encoding: unicode
   database: tumblr_development
   pool: 5
-  username: tumblr
+  username: appacademy
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -43,7 +43,7 @@ test:
   encoding: unicode
   database: tumblr_test
   pool: 5
-  username: tumblr
+  username: appacademy
   password:
 
 production:
