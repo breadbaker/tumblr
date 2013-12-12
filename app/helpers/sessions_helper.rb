@@ -3,7 +3,8 @@ module SessionsHelper
   def login(user)
     logger.info 'setting token'
     user.reset_token!
-    session[:token] = user.token
+    cookies[:token] = { :value => user.token, :expires => 9.hour.from_now }
+  #  session[:token] = user.token
   end
 
   def logout
@@ -11,7 +12,9 @@ module SessionsHelper
   end
 
   def current_user
-    @current_user ||= User.find_by_token(session[:token])
+    dan_log(cookies[:token])
+    @current_user ||= User.find_by_token(cookies[:token])
+    #@current_user= User.find(2)
     unless @current_user
       head :bad_request
       raise

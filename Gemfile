@@ -20,7 +20,11 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+gem 'backbone-on-rails'
+gem 'ejs'
+
 group :test do
+  gem "rspec-mocks"
   gem "factory_girl_rails"
   gem "capybara"
   gem 'guard-rspec'

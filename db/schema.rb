@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212011855) do
+ActiveRecord::Schema.define(:version => 20131212203250) do
+
+  create_table "avatars", :force => true do |t|
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "backgrounds", :force => true do |t|
     t.string   "url"
@@ -31,9 +37,9 @@ ActiveRecord::Schema.define(:version => 20131212011855) do
   create_table "posts", :force => true do |t|
     t.date     "post_date"
     t.integer  "user_id"
-    t.string   "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "content_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "texts", :force => true do |t|
@@ -51,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20131212011855) do
     t.string   "token"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "avatar"
   end
 
 end

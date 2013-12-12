@@ -18,9 +18,10 @@ class SessionsController < ApplicationController
 
   def create
     begin
-      @user = User.find_by_credentials!(params[:user])
+      @user = User.find_by_token(cookies[:token])
+      @user = User.find_by_credentials!(params[:user]) unless @user
       login(@user)
-      head :ok
+      render json: {user: @user}, status: 200
     rescue StandardError => e
       logger.info e.message
       head :bad_request

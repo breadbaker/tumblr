@@ -8,23 +8,59 @@ feature "Text Posts" do
 
   it 'can create a text post' do
 
-    text = FactoryGirl.build(:text)
-
-    user = FactoryGirl.build(:user)
     post_data =  {
-        text: Faker::Lorem.paragraph(8),
-        title: Faker::Company.bs,
+        content: {
+          text: Faker::Lorem.paragraph(8),
+          title: Faker::Company.bs
+        },
         post: {
+          content_type: 'Text',
           post_date: DateTime.now.to_date
-        }
+        },
+        token: user.token
       }
-    post "/texts", text: post_data
-
-
+    post "/posts", post_data
 
     expect(response.status).to eq(200)
+    expect(Text.last.text).to eq(post_data[:content][:text])
+  end
 
-    expect(Text.last.text).to eq(post_data[:text])
+  it 'validates text post text' do
+
+    post_data =  {
+        content: {
+          text: nil,
+          title: Faker::Company.bs
+        },
+        post: {
+          content_type: 'Text',
+          post_date: DateTime.now.to_date
+        },
+        token: user.token
+      }
+    post "/posts", post_data
+
+    expect(response.status).to eq(400)
+    expect(Text.last).to eq(nil)
+  end
+
+  it 'validates text post title' do
+
+    post_data =  {
+        content: {
+          text: Faker::Lorem.paragraph(8),
+          title: nil,
+        },
+        post: {
+          content_type: 'Text',
+          post_date: DateTime.now.to_date
+        },
+        token: user.token
+      }
+    post "/posts", post_data
+
+    expect(response.status).to eq(400)
+    expect(Text.last).to eq(nil)
   end
 
 

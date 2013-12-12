@@ -5,5 +5,4 @@ module ApplicationHelper
     puts "backgroundid #{back.id}"
     "http://i.imgur.com/#{back.url}.jpg"
   end
-
 end

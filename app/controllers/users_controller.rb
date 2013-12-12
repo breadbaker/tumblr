@@ -7,8 +7,9 @@ class UsersController < ApplicationController
     begin
       @user = User.new(params[:user])
       login(@user)
-      head :ok
-    rescue
+      render json: {user: @user}, status: 200
+    rescue StandardError => e
+      dan_log(e.message)
       head :bad_request
     end
   end

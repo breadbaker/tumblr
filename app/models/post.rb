@@ -1,12 +1,23 @@
 class Post < ActiveRecord::Base
-  attr_accessible :post_date, :user_id
+  attr_accessible :post_date, :user_id, :content_type
 
-  def initialize(data, type)
-    @content = Text.new(data[:content])
-    set_post_date(data[:post_date])
+  belongs_to(
+    :user,
+    class_name: "User",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+
+  def content
+    self.content_type.constantize.find_by_post_id(self.id)
   end
 
-  def set_post_date(date)
-    true
+  def as_json(post)
+    {
+      content_type: self.content_type,
+      post_date: self.post_date,
+      content: self.content
+    }
   end
+
 end

@@ -1,13 +1,26 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :pwd_hash, :token, :username, :password
+  attr_accessible :email, :pwd_hash, :token, :username, :password, :avatar
 
   validates_presence_of :username, :email
   before_save :legit_email
   validates_uniqueness_of :username, :email
-  after_initialize :reset_token!
+
+  has_many(
+    :posts,
+    class_name: "Post",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
 
   def legit_email
     raise unless self.email && self.email.match(/^.+@.+$/)
+  end
+
+  def avatar=(avatar)
+    if avatar.nil?
+      avatar = Avatar.first(offset: rand(Avatar.count))
+    end
+    @avatar = avatar
   end
 
   def self.find_by_credentials!( user )

@@ -44,7 +44,7 @@ FactoryGirl.define do
   factory :post do
     post_date DateTime.now.to_date
     user_id nil
-    type 'none'
+    content_type 'none'
   end
 
   factory :text do
