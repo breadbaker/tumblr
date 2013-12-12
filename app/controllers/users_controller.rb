@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_filter :current_user, only: [:new,:create]
+  skip_before_filter :current_user, only: [:create]
   layout 'login'
 
   def create
