@@ -55,8 +55,9 @@ user = User.create({
   username: "user#{i+1}",
   password: 'password',
   email: "fake#{i}@fake.com",
-  avatar: Avatar.first(offset: rand(Avatar.count))
+  avatar: Avatar.find(i+1).url
 })
+puts user.avatar
 
   (44 + Random.rand(12)).times do
     post = Post.create({

@@ -16,13 +16,6 @@ class User < ActiveRecord::Base
     raise unless self.email && self.email.match(/^.+@.+$/)
   end
 
-  def avatar=(avatar)
-    if avatar.nil?
-      avatar = Avatar.first(offset: rand(Avatar.count))
-    end
-    @avatar = avatar
-  end
-
   def self.find_by_credentials!( user )
     @user = User.find_by_email!(user[:email])
     raise unless @user.has_password?(user[:password])
