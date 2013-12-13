@@ -16,7 +16,6 @@ gem 'bcrypt-ruby', require: 'bcrypt'
 
 
 group :development, :test do
-  gem 'faker', require: 'faker'
   gem 'rspec-rails'
 end
 
@@ -32,4 +31,6 @@ group :test do
   gem 'rack_session_access'
 end
 
+
+gem 'faker', require: 'faker'
 gem 'nokogiri'
