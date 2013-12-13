@@ -1,0 +1,55 @@
+
+  <userlogo>
+    <img src='<%= Tumblr.user.get("avatar") %>'>
+  </userlogo>
+  <quotebubble class='group'>
+    <cornerangle></cornerangle>
+    <quickdashbubble class='trans'>
+
+      <ul class='group' >
+        <li>
+          <quickitem>
+            <i class="black fa fa-sort-alpha-asc"></i>
+            <p>Text</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="red fa fa-camera"></i>
+            <p>Photo</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="orange fa fa-quote-left"></i>
+            <p>Quote</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="green fa fa-link"></i>
+            <p>Link</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="blue fa fa-comment-o"></i>
+            <p>Chat</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="purple fa fa-headphones"></i>
+            <p>Audio</p>
+          </quickitem>
+        </li>
+        <li>
+          <quickitem>
+            <i class="grey fa fa-video-camera"></i>
+            <p>Video</p>
+          </quickitem>
+        </li>
+      </ul>
+    </quickdashbubble>
+    <%= JST['form/text']() %>
+  </quotebubble>

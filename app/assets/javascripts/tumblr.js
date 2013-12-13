@@ -4,7 +4,6 @@ window.Tumblr = {
   Views: {},
   Routers: {},
   initialize: function() {
-
     Tumblr.user = new Tumblr.Models.User();
 
     Tumblr.papaEl = $('papael');

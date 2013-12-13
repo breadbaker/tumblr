@@ -19,6 +19,14 @@ html, body {
   padding: 0;
   margin: 0;
 }
+.hidden{ opacity:0; z-index:-1 !important;}
+.hide{display:none;}
+.trans  {
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
 
 a {
   text-decoration: none;
@@ -125,6 +133,9 @@ navRight span {
   color: white;
   opacity: 0.5;
 }
+navRight span:hover {
+  opacity: 1;
+}
 
 nav {
   line-height: 90px;
@@ -136,7 +147,7 @@ nav {
 searchBar {
   border: 1px solid rgba(0,0,0,.2);
   width: 210px;
-  background-image: url(magb.png);
+  background-image: url('/mag.png');
   background-size: 20px;
   background-position: 10px 6px;
   background-repeat: no-repeat;
@@ -222,10 +233,6 @@ maincontent article {
 #quick-dash ul {
   margin-top: 0px;
 }
-#quick-dash quotebubble {
-  height: 60px;
-}
-
 
 .float-left{
   float:left;
@@ -359,7 +366,7 @@ footerlr div:nth-of-type(2) span{
   float: right;
 }
 
-texttitle, texttext{
+quickdashbubble, texttitle, texttext, textpostform, textoptions{
   display: block;
 
 }
@@ -377,3 +384,53 @@ img.photourl {
   width:100%;
   height: auto;
 }
+textpostform input{
+  display: block;
+  width: 99%;
+  line-height: 22px;
+  border-bottom:none;
+}
+texttextarea{
+  display: block;
+  width: 100%;
+  line-height: 22px;
+  border:none;
+  min-height: 200px;
+}
+
+textoptions {
+  text-align: center;
+}
+textoptions ul {
+  text-align: center;
+  padding: 10px !important;
+  margin: 0px !important;
+  border-left:1px solid rgb(227,227,227);
+
+  border-right:1px solid rgb(227,227,227);
+  border-top: 1px solid black;
+  border-bottom: 1px dashed rgb(227,227,227);
+  background-color: rgb(250,250,250);
+}
+textoptions ul li {
+  display: inline;
+  float:none !important;
+
+  padding-left: 10px !important;
+
+  padding-right: 10px !important;
+}
+textoptions ul li i {
+  font-size: 16px !important;
+}
+
+li.available {
+  color: rgb(172,172,172);
+}
+li.unavailable {
+  color: rgb(227,227,227);
+}
+li.activated {
+  color: rgb(86,156,198);
+}
+

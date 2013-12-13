@@ -1,12 +1,23 @@
 Tumblr.Views.MainView = Backbone.View.extend({
   initialize: function(){
     this.render();
+    this.quickdash = new Tumblr.Views.QuickView();
+
+    $("#logout").on('click',function(){
+      document.cookie = '';
+      Tumblr.router.login();
+    });
+  },
+
+  logout: function(){
 
   },
 
   render: function(){
 
     $('papael').html(JST['main/main']);
+
+    $('#quick-dash').html(JST['main/quick']());
 
     var renderedPost;
 
