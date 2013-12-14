@@ -1,5 +1,8 @@
+
+
 Tumblr.Views.TextView = Backbone.View.extend({
   initialize: function(){
+    //bkLib.onDomLoaded(function(){ nicEditors.allTextAreas();});
     this.addHandlers();
     this.displayarea = $('textpostform textarea')
     $('texttextarea').attr('contenteditable',true);
@@ -7,6 +10,8 @@ Tumblr.Views.TextView = Backbone.View.extend({
     this.converter = new Showdown.converter();
 
     this.currentEl = false;
+
+    this.position = 0;
 
     this.oldWrapper = '';
     this.wrapper = '';
@@ -20,64 +25,89 @@ Tumblr.Views.TextView = Backbone.View.extend({
 
   },
 
-  // events: {
-//     'keydown texttextarea': 'newChar',
-//     'click quickitem': 'postForm'
-//   },
-
-  newChar: function(e) {
-
-
-    e.preventDefault();
-
-    console.log(e);
-
-    if ( e.keyCode == 16 ){
-      this.shift = this.shift == true ? false : true;
-      return;
-    }
-
-    var realChar = this.mapKeyPressToActualCharacter(e.keyCode);
-    if (!realChar) {
-      return;
-    }
-
-    console.log(realChar, 'char');
-
-
-    this.textContent += this.buffer +realChar;
-    this.buffer = '';
-
-    console.log(this.textContent);
-
-    $('texttextarea').html(this.converter.makeHtml(this.textContent));
-
-    return;
-
-    if ( this.wrapper != '' || !this.currentEl) {
-      this.createTextEl(realChar);
-    } else {
-      this.addToBaseChild(realChar);
-    }
-
-    //this.findFocus();
-  },
-
-  createTextEl: function(c) {
-    this.currentEl = $(this.converter.makeHtml(c));
-    $('texttextarea').append(this.currentEl);
-  },
-
-  addToBaseChild: function(c) {
-
-  },
-
   addHandlers: function() {
     var that = this;
     $('texttextarea').on('keydown', function(e){
       that.newChar(e);
     });
+    $('textoptions').delegate('li','click', function(e){
+      var action = $(e.currentTarget).attr('data-action');
+      that[action]();
+    });
   },
+
+  photo: function() {
+    console.log('photo');
+    var file = $("<input type='file' class='hide' name='photo[image][]'>");
+
+    $('textpostform form').append(file);
+    file.click();
+    var that = this;
+    file.change( function() {
+      that.previewPhoto(this);
+    });
+  },
+
+  previewPhoto: function(input) {
+    if (input.files && input.files[0])
+    		  {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              var img  = $('<img src =' + e.target.result + '>');
+              $('texttextarea').append(img);
+              var data = {
+                caption: 'caption',
+                link: 'link',
+                post_id: '222',
+                url: 'www.url.com',
+                image: e.target.result
+              };
+
+              $.ajax({
+                url: '/photos',
+                type: "POST",
+                data: {photo: data},
+                success: function(r) {
+                  console.log(r);
+                },
+                error: function(e){
+                  console.log(e);
+                }
+              });
+    					// j('body').RequestBuilder('setPreview',e.target.result);
+//               j('body').RequestBuilder('goTo','reqEdit');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+          }
+  },
+
+  embolden: function() {
+    console.log(this.getSelectionHtml());
+
+  },
+
+  getSelectionHtml: function() {
+      var html = "";
+      if (typeof window.getSelection != "undefined") {
+          var sel = window.getSelection();
+          if (sel.rangeCount) {
+              var container = document.createElement("div");
+              for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                  container.appendChild(sel.getRangeAt(i).cloneContents());
+              }
+              html = container.innerHTML;
+          }
+      } else if (typeof document.selection != "undefined") {
+          if (document.selection.type == "Text") {
+              html = document.selection.createRange().htmlText;
+          }
+      }
+      console.log(html);
+  },
+
+
 
   postForm: function(e) {
     this.hideShow($('quickdashbubble'),$('textpostform'),1000);

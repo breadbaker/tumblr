@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212203250) do
+ActiveRecord::Schema.define(:version => 20131214175848) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
@@ -30,8 +30,12 @@ ActiveRecord::Schema.define(:version => 20131212203250) do
     t.string   "link"
     t.integer  "post_id"
     t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "posts", :force => true do |t|

@@ -2,6 +2,7 @@
   <form>
     <input type='hidden' name='post[content_type]'>
     <input type='text' name='content[title]' placeholder='Title'>
+
     <textoptions class=''>
       <ul class=''>
         <li class='available' data-action='embolden'><i class='fa fa-bold'></i></li>
@@ -18,12 +19,15 @@
 
         <li class='unavailable' data-action='listul'><i class='fa fa-list-ul'></i></li>
 
+        <li class='available' data-action='photo'><i class='fa fa-camera'></i></li>
+
         <li class='available' data-action='blockquote'><i class='fa fa-quote-left'></i></li>
 
         <li class='available' data-action='html'><i class='fa fa-html5'></i></li>
       </ul>
     </textoptions>
     <texttextarea tabindex='1' name='content[text]'>
+      <textarea></textarea>
     </texttextarea>
   </form>
 </textpostform>

@@ -416,9 +416,9 @@ textoptions ul li {
   display: inline;
   float:none !important;
 
-  padding-left: 10px !important;
+  padding-left: 9px !important;
 
-  padding-right: 10px !important;
+  padding-right: 9px !important;
 }
 textoptions ul li i {
   font-size: 16px !important;

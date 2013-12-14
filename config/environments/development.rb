@@ -34,4 +34,13 @@ Tumblr::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => "tumblr-clone",
+      :access_key_id => "AKIAJJ4LLXIXQPHJS4VQ",#"AWS-KEY-ID",
+      :secret_access_key => "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"#"AWS-ACCESS-KEY"
+    }
+  }
 end

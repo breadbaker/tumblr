@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require serializeJSON
+//= require moveCursor
+//= require string
+//= require nicedit
 //= require underscore
 //= require backbone
 //= require tumblr

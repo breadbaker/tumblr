@@ -3,6 +3,7 @@ Tumblr.Views.QuickView = Backbone.View.extend({
     this.addHandlers();
     this.textView = new Tumblr.Views.TextView();
 
+
   },
 
   events: {
@@ -18,7 +19,7 @@ Tumblr.Views.QuickView = Backbone.View.extend({
 
   postForm: function(e) {
     this.hideShow($('quickdashbubble'),$('textpostform'),400);
-
+    setTimeout( function(){nicEditors.allTextAreas()},800);
     console.log(e);
   }
 });

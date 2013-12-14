@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
 
   def index
+
     @posts = current_user.posts
     dan_log(@posts)
     render json: @posts
   end
+
+
 
   def create
     begin

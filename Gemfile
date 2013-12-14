@@ -34,3 +34,8 @@ end
 
 gem 'faker', require: 'faker'
 gem 'nokogiri'
+
+gem 'figaro'
+
+gem "paperclip"
+gem "aws-sdk"
