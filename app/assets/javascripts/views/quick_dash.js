@@ -19,7 +19,11 @@ Tumblr.Views.QuickView = Backbone.View.extend({
 
   postForm: function(e) {
     this.hideShow($('quickdashbubble'),$('textpostform'),400);
-    setTimeout( function(){nicEditors.allTextAreas()},800);
+
+
+    setTimeout( function(){
+      new nicEditor({fullPanel : true}).panelInstance('myArea1',{hasPanel : true});
+    },800);
     console.log(e);
   }
 });

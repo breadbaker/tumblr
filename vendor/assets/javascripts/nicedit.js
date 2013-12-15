@@ -42,6 +42,10 @@ var bkElement = bkClass.extend({
         A.appendChild(this);
         return this
     },
+    append: function(B){
+      this.appendChild(B);
+      return this;
+    },
     appendBefore: function (A) {
         A.parentNode.insertBefore(this, A);
         return this
@@ -281,55 +285,6 @@ var nicEditorConfig = bkClass.extend({
             },
             key: 'i'
         },
-        'underline': {
-            name: __('Click to Underline'),
-            command: 'Underline',
-            tags: ['U'],
-            css: {
-                'text-decoration': 'underline'
-            },
-            key: 'u'
-        },
-        'left': {
-            name: __('Left Align'),
-            command: 'justifyleft',
-            noActive: true
-        },
-        'center': {
-            name: __('Center Align'),
-            command: 'justifycenter',
-            noActive: true
-        },
-        'right': {
-            name: __('Right Align'),
-            command: 'justifyright',
-            noActive: true
-        },
-        'justify': {
-            name: __('Justify Align'),
-            command: 'justifyfull',
-            noActive: true
-        },
-        'ol': {
-            name: __('Insert Ordered List'),
-            command: 'insertorderedlist',
-            tags: ['OL']
-        },
-        'ul': {
-            name: __('Insert Unordered List'),
-            command: 'insertunorderedlist',
-            tags: ['UL']
-        },
-        'subscript': {
-            name: __('Click to Subscript'),
-            command: 'subscript',
-            tags: ['SUB']
-        },
-        'superscript': {
-            name: __('Click to Superscript'),
-            command: 'superscript',
-            tags: ['SUP']
-        },
         'strikethrough': {
             name: __('Click to Strike Through'),
             command: 'strikeThrough',
@@ -337,56 +292,22 @@ var nicEditorConfig = bkClass.extend({
                 'text-decoration': 'line-through'
             }
         },
-        'removeformat': {
-            name: __('Remove Formatting'),
-            command: 'removeformat',
-            noActive: true
-        },
-        'indent': {
-            name: __('Indent Text'),
-            command: 'indent',
-            noActive: true
-        },
-        'outdent': {
-            name: __('Remove Indent'),
-            command: 'outdent',
-            noActive: true
-        },
-        'hr': {
-            name: __('Horizontal Rule'),
-            command: 'insertHorizontalRule',
-            noActive: true
+        'ol': {
+            name: __('Insert Ordered List'),
+            command: 'insertorderedlist',
+            tags: ['OL']
         }
     },
     iconsPath: 'http://js.nicedit.com/nicEditIcons-latest.gif',
-    buttonList: ['save', 'bold', 'italic', 'underline', 'left', 'center', 'right', 'justify', 'ol', 'ul', 'fontSize', 'fontFamily', 'fontFormat', 'indent', 'outdent', 'image', 'upload', 'link', 'unlink', 'forecolor', 'bgcolor'],
+    buttonList: ['bold', 'italic', 'ol', 'link', 'unlink', ''],
     iconList: {
-        "xhtml": 1,
-        "bgcolor": 2,
-        "forecolor": 3,
-        "bold": 4,
-        "center": 5,
-        "hr": 6,
-        "indent": 7,
-        "italic": 8,
-        "justify": 9,
-        "left": 10,
-        "ol": 11,
-        "outdent": 12,
-        "removeformat": 13,
-        "right": 14,
-        "save": 25,
-        "strikethrough": 16,
-        "subscript": 17,
-        "superscript": 18,
-        "ul": 19,
-        "underline": 20,
-        "image": 21,
-        "link": 22,
-        "unlink": 23,
-        "close": 24,
-        "arrow": 26,
-        "upload": 27
+        "bold": "fa-bold",
+        "italic": "fa-italic",
+        "ol": "fa-list-ol",
+        "strikethrough": "fa-strikethrough",
+        "link": "fa-link",
+        "unlink": "fa-unlick",
+        "upload": "fa-camera"
     }
 
 });;
@@ -489,13 +410,8 @@ var nicEditor = bkClass.extend({
             this.selectedInstance.nicCommand(B, A)
         }
     },
-    getIcon: function (D, A) {
-        var C = this.options.iconList[D];
-        var B = (A.iconFiles) ? A.iconFiles[D] : "";
-        return {
-            backgroundImage: "url('" + ((C) ? this.options.iconsPath : B) + "')",
-            backgroundPosition: ((C) ? ((C - 1) * -18) : 0) + "px 0px"
-        }
+    getIcon: function (item) {
+      return  "fa " + this.options.iconList[item];
     },
     selectCheck: function (C, A) {
         var B = false;
@@ -683,71 +599,7 @@ var nicEditorInstance = bkClass.extend({
         document.execCommand(B, false, A)
     }
 });
-var nicEditorIFrameInstance = nicEditorInstance.extend({
-    savedStyles: [],
-    init: function () {
-        var B = this.elm.innerHTML.replace(/^\s+|\s+$/g, "");
-        this.elm.innerHTML = "";
-        (!B) ? B = "<br />" : B;
-        this.initialContent = B;
-        this.elmFrame = new bkElement("iframe").setAttributes({
-            src: "javascript:;",
-            frameBorder: 0,
-            allowTransparency: "true",
-            scrolling: "no"
-        }).setStyle({
-            height: "100px",
-            width: "100%"
-        }).addClass("frame").appendTo(this.elm);
-        if (this.copyElm) {
-            this.elmFrame.setStyle({
-                width: (this.elm.offsetWidth - 4) + "px"
-            })
-        }
-        var A = ["font-size", "font-family", "font-weight", "color"];
-        for (itm in A) {
-            this.savedStyles[bkLib.camelize(itm)] = this.elm.getStyle(itm)
-        }
-        setTimeout(this.initFrame.closure(this), 50)
-    },
-    disable: function () {
-        this.elm.innerHTML = this.getContent()
-    },
-    initFrame: function () {
-        var B = $BK(this.elmFrame.contentWindow.document);
-        B.designMode = "on";
-        B.open();
-        var A = this.ne.options.externalCSS;
-        B.write("<html><head>" + ((A) ? '<link href="' + A + '" rel="stylesheet" type="text/css" />' : "") + '</head><body id="nicEditContent" style="margin: 0 !important; background-color: transparent !important;">' + this.initialContent + "</body></html>");
-        B.close();
-        this.frameDoc = B;
-        this.frameWin = $BK(this.elmFrame.contentWindow);
-        this.frameContent = $BK(this.frameWin.document.body).setStyle(this.savedStyles);
-        this.instanceDoc = this.frameWin.document.defaultView;
-        this.heightUpdate();
-        this.frameDoc.addEvent("mousedown", this.selected.closureListener(this)).addEvent("keyup", this.heightUpdate.closureListener(this)).addEvent("keydown", this.keyDown.closureListener(this)).addEvent("keyup", this.selected.closure(this));
-        this.ne.fireEvent("add", this)
-    },
-    getElm: function () {
-        return this.frameContent
-    },
-    setContent: function (A) {
-        this.content = A;
-        this.ne.fireEvent("set", this);
-        this.frameContent.innerHTML = this.content;
-        this.heightUpdate()
-    },
-    getSel: function () {
-        return (this.frameWin) ? this.frameWin.getSelection() : this.frameDoc.selection
-    },
-    heightUpdate: function () {
-        this.elmFrame.style.height = Math.max(this.frameContent.offsetHeight, this.initialHeight) + "px"
-    },
-    nicCommand: function (B, A) {
-        this.frameDoc.execCommand(B, false, A);
-        setTimeout(this.heightUpdate.closure(this), 100)
-    }
-});
+
 var nicEditorPanel = bkClass.extend({
     construct: function (E, B, A) {
         this.elm = E;
@@ -756,16 +608,18 @@ var nicEditorPanel = bkClass.extend({
         this.panelButtons = new Array();
         this.buttonList = bkExtend([], this.ne.options.buttonList);
         this.panelContain = new bkElement("DIV").setStyle({
-            overflow: "hidden",
-            width: "100%",
-            border: "1px solid #cccccc",
-            backgroundColor: "#efefef"
+          className: ' group '
+            // overflow: "hidden",
+//             width: "100%",
+//             border: "1px solid #cccccc",
+//             backgroundColor: "#efefef"
         }).addClass("panelContain");
-        this.panelElm = new bkElement("DIV").setStyle({
-            margin: "2px",
-            marginTop: "0px",
-            zoom: 1,
-            overflow: "hidden"
+        this.panelElm = new bkElement("ul").setStyle({
+           className: 'editoptions'
+            // margin: "2px",
+//             marginTop: "0px",
+//             zoom: 1,
+//             overflow: "hidden"
         }).addClass("panel").appendTo(this.panelContain);
         this.panelContain.appendTo(E);
         var C = this.ne.options;
@@ -799,7 +653,7 @@ var nicEditorPanel = bkClass.extend({
         for (var B = 0; B < C.length; B++) {
             var A = this.findButton(C[B]);
             if (A) {
-                this.panelElm.appendChild(A.margin)
+                this.panelElm.appendChild(A.li)
             }
         }
     },
@@ -813,28 +667,32 @@ var nicEditorButton = bkClass.extend({
         this.name = A;
         this.ne = B;
         this.elm = D;
-        this.margin = new bkElement("DIV").setStyle({
-            "float": "left",
-            marginTop: "2px"
+        this.li = new bkElement("li").setStyle({
+            // "float": "left",
+//             marginTop: "2px"
         }).appendTo(D);
-        this.contain = new bkElement("DIV").setStyle({
-            width: "20px",
-            height: "20px"
-        }).addClass("buttonContain").appendTo(this.margin);
-        this.border = new bkElement("DIV").setStyle({
-            backgroundColor: "#efefef",
-            border: "1px solid #efefef"
-        }).appendTo(this.contain);
-        this.button = new bkElement("DIV").setStyle({
-            width: "18px",
-            height: "18px",
-            overflow: "hidden",
-            zoom: 1,
-            cursor: "pointer"
-        }).addClass("button").setStyle(this.ne.getIcon(A, C)).appendTo(this.border);
-        this.button.addEvent("mouseover", this.hoverOn.closure(this)).addEvent("mouseout", this.hoverOff.closure(this)).addEvent("mousedown", this.mouseClick.closure(this)).noSelect();
+       //  this.contain = new bkElement("DIV").setStyle({
+//             width: "20px",
+//             height: "20px"
+//         }).addClass("buttonContain").appendTo(this.margin);
+//         this.border = new bkElement("DIV").setStyle({
+//             // backgroundColor: "#efefef",
+// //             border: "1px solid #efefef"
+//         }).appendTo(this.contain);
+//         this.button = new bkElement("DIV").setStyle({
+//             width: "18px",
+//             height: "18px",
+// //             overflow: "hidden",
+// //             zoom: 1,
+// //             cursor: "pointer"
+//         }).addClass("button").setStyle(this.ne.getIcon(A, C)).appendTo(this.border);
+        this.icon = new bkElement('i').setStyle({
+          "className": this.ne.getIcon(A)
+        }).appendTo(this.li);
+        this.li.addClass('button');
+        this.li.addEvent("mouseover", this.hoverOn.closure(this)).addEvent("mouseout", this.hoverOff.closure(this)).addEvent("mousedown", this.mouseClick.closure(this)).noSelect();
         if (!window.opera) {
-            this.button.onmousedown = this.button.onclick = bkLib.cancelEvent
+            this.li.onmousedown = this.li.onclick = bkLib.cancelEvent
         }
         B.addEvent("selected", this.enable.closure(this)).addEvent("blur", this.disable.closure(this)).addEvent("key", this.key.closure(this));
         this.disable();
@@ -847,19 +705,19 @@ var nicEditorButton = bkClass.extend({
         })
     },
     updateState: function () {
-        if (this.isDisabled) {
-            this.setBg()
-        } else {
-            if (this.isHover) {
-                this.setBg("hover")
-            } else {
-                if (this.isActive) {
-                    this.setBg("active")
-                } else {
-                    this.setBg()
-                }
-            }
-        }
+        // if (this.isDisabled) {
+  //           this.setBg()
+  //       } else {
+  //           if (this.isHover) {
+  //               this.setBg("hover")
+  //           } else {
+  //               if (this.isActive) {
+  //                   this.setBg("active")
+  //               } else {
+  //                   this.setBg()
+  //               }
+  //           }
+  //       }
     },
     setBg: function (A) {
         switch (A) {
@@ -922,7 +780,7 @@ var nicEditorButton = bkClass.extend({
     },
     enable: function (A, B) {
         this.isDisabled = false;
-        this.contain.setStyle({
+        this.li.setStyle({
             opacity: 1
         }).addClass("buttonEnabled");
         this.updateState();
@@ -930,7 +788,7 @@ var nicEditorButton = bkClass.extend({
     },
     disable: function (A, B) {
         this.isDisabled = true;
-        this.contain.setStyle({
+        this.li.setStyle({
             opacity: 0.6
         }).removeClass("buttonEnabled");
         this.updateState()
@@ -968,22 +826,22 @@ var nicEditorButton = bkClass.extend({
         }
     }
 });
-var nicPlugin = bkClass.extend({
-    construct: function (B, A) {
-        this.options = A;
-        this.ne = B;
-        this.ne.addEvent("panel", this.loadPanel.closure(this));
-        this.init()
-    },
-    loadPanel: function (C) {
-        var B = this.options.buttons;
-        for (var A in B) {
-            C.addButton(A, this.options)
-        }
-        C.reorder()
-    },
-    init: function () {}
-});
+// var nicPlugin = bkClass.extend({
+//     construct: function (B, A) {
+//         this.options = A;
+//         this.ne = B;
+//         this.ne.addEvent("panel", this.loadPanel.closure(this));
+//         this.init()
+//     },
+//     loadPanel: function (C) {
+//         var B = this.options.buttons;
+//         for (var A in B) {
+//             C.addButton(A, this.options)
+//         }
+//         C.reorder()
+//     },
+//     init: function () {}
+// });
 
 
 var nicPaneOptions = {};
@@ -1056,21 +914,6 @@ var nicEditorPane = bkClass.extend({
 
 var nicSelectOptions = {
     buttons: {
-        'fontSize': {
-            name: __('Select Font Size'),
-            type: 'nicEditorFontSizeSelect',
-            command: 'fontsize'
-        },
-        'fontFamily': {
-            name: __('Select Font Family'),
-            type: 'nicEditorFontFamilySelect',
-            command: 'fontname'
-        },
-        'fontFormat': {
-            name: __('Select Font Format'),
-            type: 'nicEditorFontFormatSelect',
-            command: 'formatBlock'
-        }
     }
 };
 
@@ -1496,67 +1339,6 @@ var nicColorOptions = {
     }
 };
 
-var nicEditorColorButton = nicEditorAdvancedButton.extend({
-    addPane: function () {
-        var D = {
-            0: "00",
-            1: "33",
-            2: "66",
-            3: "99",
-            4: "CC",
-            5: "FF"
-        };
-        var H = new bkElement("DIV").setStyle({
-            width: "270px"
-        });
-        for (var A in D) {
-            for (var F in D) {
-                for (var E in D) {
-                    var I = "#" + D[A] + D[E] + D[F];
-                    var C = new bkElement("DIV").setStyle({
-                        cursor: "pointer",
-                        height: "15px",
-                        "float": "left"
-                    }).appendTo(H);
-                    var G = new bkElement("DIV").setStyle({
-                        border: "2px solid " + I
-                    }).appendTo(C);
-                    var B = new bkElement("DIV").setStyle({
-                        backgroundColor: I,
-                        overflow: "hidden",
-                        width: "11px",
-                        height: "11px"
-                    }).addEvent("click", this.colorSelect.closure(this, I)).addEvent("mouseover", this.on.closure(this, G)).addEvent("mouseout", this.off.closure(this, G, I)).appendTo(G);
-                    if (!window.opera) {
-                        C.onmousedown = B.onmousedown = bkLib.cancelEvent
-                    }
-                }
-            }
-        }
-        this.pane.append(H.noSelect())
-    },
-    colorSelect: function (A) {
-        this.ne.nicCommand("foreColor", A);
-        this.removePane()
-    },
-    on: function (A) {
-        A.setStyle({
-            border: "2px solid #000"
-        })
-    },
-    off: function (A, B) {
-        A.setStyle({
-            border: "2px solid " + B
-        })
-    }
-});
-var nicEditorBgColorButton = nicEditorColorButton.extend({
-    colorSelect: function (A) {
-        this.ne.nicCommand("hiliteColor", A);
-        this.removePane()
-    }
-});
-nicEditors.registerPlugin(nicPlugin, nicColorOptions);
 
 
 var nicImageOptions = {
@@ -1570,61 +1352,7 @@ var nicImageOptions = {
 
 };
 
-var nicImageButton = nicEditorAdvancedButton.extend({
-    addPane: function () {
-        this.im = this.ne.selectedInstance.selElm().parentTag("IMG");
-        this.addForm({
-            "": {
-                type: "title",
-                txt: "Add/Edit Image"
-            },
-            src: {
-                type: "text",
-                txt: "URL",
-                value: "http://",
-                style: {
-                    width: "150px"
-                }
-            },
-            alt: {
-                type: "text",
-                txt: "Alt Text",
-                style: {
-                    width: "100px"
-                }
-            },
-            align: {
-                type: "select",
-                txt: "Align",
-                options: {
-                    none: "Default",
-                    left: "Left",
-                    right: "Right"
-                }
-            }
-        }, this.im)
-    },
-    submit: function (B) {
-        var C = this.inputs.src.value;
-        if (C == "" || C == "http://") {
-            alert("You must enter a Image URL to insert");
-            return false
-        }
-        this.removePane();
-        if (!this.im) {
-            var A = "javascript:nicImTemp();";
-            this.ne.nicCommand("insertImage", A);
-            this.im = this.findElm("IMG", "src", A)
-        }
-        if (this.im) {
-            this.im.setAttributes({
-                src: this.inputs.src.value,
-                alt: this.inputs.alt.value,
-                align: this.inputs.align.value
-            })
-        }
-    }
-});
+
 nicEditors.registerPlugin(nicPlugin, nicImageOptions);
 
 
@@ -1790,30 +1518,7 @@ var nicCodeOptions = {
 
 };
 
-var nicCodeButton = nicEditorAdvancedButton.extend({
-    width: "350px",
-    addPane: function () {
-        this.addForm({
-            "": {
-                type: "title",
-                txt: "Edit HTML"
-            },
-            code: {
-                type: "content",
-                value: this.ne.selectedInstance.getContent(),
-                style: {
-                    width: "340px",
-                    height: "200px"
-                }
-            }
-        })
-    },
-    submit: function (B) {
-        var A = this.inputs.code.value;
-        this.ne.selectedInstance.setContent(A);
-        this.removePane()
-    }
-});
+
 nicEditors.registerPlugin(nicPlugin, nicCodeOptions);
 
 var nicBBCode = bkClass.extend({
@@ -1873,125 +1578,4 @@ var nicBBCode = bkClass.extend({
 nicEditors.registerPlugin(nicBBCode);
 
 
-var nicUploadOptions = {
-    buttons: {
-        'upload': {
-            name: 'Upload Image',
-            type: 'nicUploadButton'
-        }
-    }
-
-};
-
-var nicUploadButton = nicEditorAdvancedButton.extend({
-    nicURI: "http://localhost:3000/posts",
-
-    //nicURI: "http://api.imgur.com/2/upload.json",
-    errorText: "Failed to upload image",
-    addPane: function () {
-        if (typeof window.FormData === "undefined") {
-            return this.onError("Image uploads are not supported in this browser, use Chrome, Firefox, or Safari instead.")
-        }
-        this.im = this.ne.selectedInstance.selElm().parentTag("IMG");
-        var A = new bkElement("div").setStyle({
-            padding: "10px"
-        }).appendTo(this.pane.pane);
-        new bkElement("div").setStyle({
-            fontSize: "14px",
-            fontWeight: "bold",
-            paddingBottom: "5px"
-        }).setContent("Insert an Image").appendTo(A);
-        this.fileInput = new bkElement("input").setAttributes({
-            type: "file"
-        }).appendTo(A);
-        this.progress = new bkElement("progress").setStyle({
-            width: "100%",
-            display: "none"
-        }).setAttributes("max", 100).appendTo(A);
-        this.fileInput.onchange = this.uploadFile.closure(this)
-    },
-    onError: function (A) {
-        this.removePane();
-        alert(A || "Failed to upload image")
-    },
-    uploadFile: function () {
-        var B = this.fileInput.files[0];
-        if (!B || !B.type.match(/image.*/)) {
-            this.onError("Only image files can be uploaded");
-            return
-        }
-        this.fileInput.setStyle({
-            display: "none"
-        });
-        this.setProgress(0);
-        var A = new FormData();
-        A.append("image", B);
-        //A.append("key", "b7ea18a4ecbda8e92203fa4968d10660");
-        // var C = new XMLHttpRequest();
-//         C.open("POST", this.ne.options.uploadURI || this.nicURI);
-//         C.onload = function () {
-//             try {
-//                 var D = JSON.parse(C.responseText)
-//             } catch (E) {
-//                 return this.onError()
-//             }
-//             this.onUploaded(D.upload)
-//         }.closure(this);
-//         C.onerror = this.onError.closure(this);
-//         C.upload.onprogress = function (D) {
-//             this.setProgress(D.loaded / D.total)
-//         }.closure(this);
-//         C.send(A);
-
-        $.ajax({
-                url: 'http://localhost:3000/posts',  //Server script to process data
-                type: 'POST',
-                method: 'POST',
-                xhr: function() {  // Custom XMLHttpRequest
-                    var myXhr = $.ajaxSettings.xhr();
-                    if(myXhr.upload){ // Check if upload property exists
-                        myXhr.upload.addEventListener('progress',function(e){console.log(e);}, false); // For handling the progress of the upload
-                    }
-                    return myXhr;
-                },
-                //Ajax events
-                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-                success: function(e){console.log(e);},
-                error: function(e){console.log(e);},
-                // Form data
-                data: A,
-                //Options to tell jQuery not to process data or worry about content-type.
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-    },
-    setProgress: function (A) {
-        this.progress.setStyle({
-            display: "block"
-        });
-        if (A < 0.98) {
-            this.progress.value = A
-        } else {
-            this.progress.removeAttribute("value")
-        }
-    },
-    onUploaded: function (B) {
-        this.removePane();
-        var D = B.links.original;
-        if (!this.im) {
-            this.ne.selectedInstance.restoreRng();
-            var C = "javascript:nicImTemp();";
-            this.ne.nicCommand("insertImage", D);
-            this.im = this.findElm("IMG", "src", D)
-        }
-        var A = parseInt(this.ne.selectedInstance.elm.getStyle("width"));
-        if (this.im) {
-            this.im.setAttributes({
-                src: D,
-                width: (A && B.image.width) ? Math.min(A, B.image.width) : ""
-            })
-        }
-    }
-});
-nicEditors.registerPlugin(nicPlugin, nicUploadOptions);
+//nicEditors.registerPlugin(nicPlugin, nicUploadOptions);

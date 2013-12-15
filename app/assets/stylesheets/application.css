@@ -401,7 +401,7 @@ texttextarea{
 textoptions {
   text-align: center;
 }
-textoptions ul {
+.editoptions {
   text-align: center;
   padding: 10px !important;
   margin: 0px !important;
@@ -412,7 +412,7 @@ textoptions ul {
   border-bottom: 1px dashed rgb(227,227,227);
   background-color: rgb(250,250,250);
 }
-textoptions ul li {
+.editoptions li {
   display: inline;
   float:none !important;
 
@@ -420,7 +420,7 @@ textoptions ul li {
 
   padding-right: 9px !important;
 }
-textoptions ul li i {
+.editoptions li i {
   font-size: 16px !important;
 }
 
