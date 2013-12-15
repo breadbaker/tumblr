@@ -424,13 +424,15 @@ textoptions {
   font-size: 16px !important;
 }
 
-li.available {
-  color: rgb(172,172,172);
-}
+
 li.unavailable {
   color: rgb(227,227,227);
 }
-li.activated {
+li.nicEdit-buttonEnabled {
+  color: rgb(172,172,172);
+}
+
+li.nicEdit-buttonActivate {
   color: rgb(86,156,198);
 }
 
