@@ -733,87 +733,87 @@ var nicEditorButton = bkClass.extend({
     }
 });
 
-var nicButtonTips = bkClass.extend({
-    construct: function (A) {
-        this.ne = A;
-        A.addEvent("buttonOver", this.show.closure(this)).addEvent("buttonOut", this.hide.closure(this))
-    },
-    show: function (A) {
-        this.timer = setTimeout(this.create.closure(this, A), 400)
-    },
-    create: function (A) {
-        this.timer = null;
-        if (!this.pane) {
-            this.pane = new nicEditorPane(A.button, this.ne, {
-                fontSize: "12px",
-                marginTop: "5px"
-            });
-            this.pane.setContent(A.options.name)
-        }
-    },
-    hide: function (A) {
-        if (this.timer) {
-            clearTimeout(this.timer)
-        }
-        if (this.pane) {
-            this.pane = this.pane.remove()
-        }
-    }
-});
-nicEditors.registerPlugin(nicButtonTips);
-
-var nicBBCode = bkClass.extend({
-    construct: function (A) {
-        this.ne = A;
-        if (this.ne.options.bbCode) {
-            A.addEvent("get", this.bbGet.closure(this));
-            A.addEvent("set", this.bbSet.closure(this));
-            var B = this.ne.loadedPlugins;
-            for (itm in B) {
-                if (B[itm].toXHTML) {
-                    this.xhtml = B[itm]
-                }
-            }
-        }
-    },
-    bbGet: function (A) {
-        var B = this.xhtml.toXHTML(A.getElm());
-        A.content = this.toBBCode(B)
-    },
-    bbSet: function (A) {
-        A.content = this.fromBBCode(A.content)
-    },
-    toBBCode: function (B) {
-        function A(D, C) {
-            B = B.replace(D, C)
-        }
-        A(/\n/gi, "");
-        A(/<strong>(.*?)<\/strong>/gi, "[b]$1[/b]");
-        A(/<em>(.*?)<\/em>/gi, "[i]$1[/i]");
-        A(/<span.*?style="text-decoration:underline;">(.*?)<\/span>/gi, "[u]$1[/u]");
-        A(/<ul>(.*?)<\/ul>/gi, "[list]$1[/list]");
-        A(/<li>(.*?)<\/li>/gi, "[*]$1[]");
-        A(/<ol>(.*?)<\/ol>/gi, "[list=1]$1[/list]");
-        A(/<img.*?src="(.*?)".*?>/gi, "[img]$1[/img]");
-        A(/<a.*?href="(.*?)".*?>(.*?)<\/a>/gi, "[url=$1]$2[/url]");
-        A(/<br.*?>/gi, "\n");
-        A(/<.*?>.*?<\/.*?>/gi, "");
-        return B
-    },
-    fromBBCode: function (A) {
-        function B(D, C) {
-            A = A.replace(D, C)
-        }
-        B(/\[b\](.*?)\[\/b\]/gi, "<strong>$1</strong>");
-        B(/\[i\](.*?)\[\/i\]/gi, "<em>$1</em>");
-        B(/\[u\](.*?)\[\/u\]/gi, '<span style="text-decoration:underline;">$1</span>');
-        B(/\[list\](.*?)\[\/list\]/gi, "<ul>$1</ul>");
-        B(/\[list=1\](.*?)\[\/list\]/gi, "<ol>$1</ol>");
-        B(/\[\*\](.*?)\[\/\*\]/gi, "<li>$1</li>");
-        B(/\[img\](.*?)\[\/img\]/gi, '<img src="$1" />');
-        B(/\[url=(.*?)\](.*?)\[\/url\]/gi, '<a href="$1">$2</a>');
-        B(/\n/gi, "<br />");
-        return A
-    }
-});
-nicEditors.registerPlugin(nicBBCode);
+// var nicButtonTips = bkClass.extend({
+//     construct: function (A) {
+//         this.ne = A;
+//         A.addEvent("buttonOver", this.show.closure(this)).addEvent("buttonOut", this.hide.closure(this))
+//     },
+//     show: function (A) {
+//         this.timer = setTimeout(this.create.closure(this, A), 400)
+//     },
+//     create: function (A) {
+//         this.timer = null;
+//         if (!this.pane) {
+//             this.pane = new nicEditorPane(A.button, this.ne, {
+//                 fontSize: "12px",
+//                 marginTop: "5px"
+//             });
+//             this.pane.setContent(A.options.name)
+//         }
+//     },
+//     hide: function (A) {
+//         if (this.timer) {
+//             clearTimeout(this.timer)
+//         }
+//         if (this.pane) {
+//             this.pane = this.pane.remove()
+//         }
+//     }
+// });
+// nicEditors.registerPlugin(nicButtonTips);
+//
+// var nicBBCode = bkClass.extend({
+//     construct: function (A) {
+//         this.ne = A;
+//         if (this.ne.options.bbCode) {
+//             A.addEvent("get", this.bbGet.closure(this));
+//             A.addEvent("set", this.bbSet.closure(this));
+//             var B = this.ne.loadedPlugins;
+//             for (itm in B) {
+//                 if (B[itm].toXHTML) {
+//                     this.xhtml = B[itm]
+//                 }
+//             }
+//         }
+//     },
+//     bbGet: function (A) {
+//         var B = this.xhtml.toXHTML(A.getElm());
+//         A.content = this.toBBCode(B)
+//     },
+//     bbSet: function (A) {
+//         A.content = this.fromBBCode(A.content)
+//     },
+//     toBBCode: function (B) {
+//         function A(D, C) {
+//             B = B.replace(D, C)
+//         }
+//         A(/\n/gi, "");
+//         A(/<strong>(.*?)<\/strong>/gi, "[b]$1[/b]");
+//         A(/<em>(.*?)<\/em>/gi, "[i]$1[/i]");
+//         A(/<span.*?style="text-decoration:underline;">(.*?)<\/span>/gi, "[u]$1[/u]");
+//         A(/<ul>(.*?)<\/ul>/gi, "[list]$1[/list]");
+//         A(/<li>(.*?)<\/li>/gi, "[*]$1[]");
+//         A(/<ol>(.*?)<\/ol>/gi, "[list=1]$1[/list]");
+//         A(/<img.*?src="(.*?)".*?>/gi, "[img]$1[/img]");
+//         A(/<a.*?href="(.*?)".*?>(.*?)<\/a>/gi, "[url=$1]$2[/url]");
+//         A(/<br.*?>/gi, "\n");
+//         A(/<.*?>.*?<\/.*?>/gi, "");
+//         return B
+//     },
+//     fromBBCode: function (A) {
+//         function B(D, C) {
+//             A = A.replace(D, C)
+//         }
+//         B(/\[b\](.*?)\[\/b\]/gi, "<strong>$1</strong>");
+//         B(/\[i\](.*?)\[\/i\]/gi, "<em>$1</em>");
+//         B(/\[u\](.*?)\[\/u\]/gi, '<span style="text-decoration:underline;">$1</span>');
+//         B(/\[list\](.*?)\[\/list\]/gi, "<ul>$1</ul>");
+//         B(/\[list=1\](.*?)\[\/list\]/gi, "<ol>$1</ol>");
+//         B(/\[\*\](.*?)\[\/\*\]/gi, "<li>$1</li>");
+//         B(/\[img\](.*?)\[\/img\]/gi, '<img src="$1" />');
+//         B(/\[url=(.*?)\](.*?)\[\/url\]/gi, '<a href="$1">$2</a>');
+//         B(/\n/gi, "<br />");
+//         return A
+//     }
+// });
+// nicEditors.registerPlugin(nicBBCode);

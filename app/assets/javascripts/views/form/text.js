@@ -7,8 +7,9 @@ Tumblr.Views.TextView = Backbone.View.extend({
     this.displayarea = $('textpostform textarea')
     $('texttextarea').attr('contenteditable',true);
 
-    this.converter = new Showdown.converter();
+    // this.converter = new Showdown.converter();
 
+    this.editor = new DE.Editor();
     this.currentEl = false;
 
     this.position = 0;
@@ -21,19 +22,18 @@ Tumblr.Views.TextView = Backbone.View.extend({
 
     $('texttextarea').append(this.currentEl);
 
-    console.log(this.converter.makeHtml('**hello**'));
 
   },
 
   addHandlers: function() {
-    var that = this;
-    $('texttextarea').on('keydown', function(e){
-      that.newChar(e);
-    });
-    $('textoptions').delegate('li','click', function(e){
-      var action = $(e.currentTarget).attr('data-action');
-      that[action]();
-    });
+    // var that = this;
+  //   $('texttextarea').on('keydown', function(e){
+  //     that.newChar(e);
+  //   });
+  //   $('textoptions').delegate('li','click', function(e){
+  //     var action = $(e.currentTarget).attr('data-action');
+  //     that[action]();
+  //   });
   },
 
   photo: function() {

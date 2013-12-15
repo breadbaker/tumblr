@@ -15,8 +15,8 @@
 //= require serializeJSON
 //= require moveCursor
 //= require string
-//= require nicedit
 //= require underscore
+//= require danebit
 //= require backbone
 //= require tumblr
 //= require_tree ../templates

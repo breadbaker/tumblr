@@ -5,9 +5,9 @@
 
     <textoptions class=''>
       <ul class='editoptions'>
-        <li class='available' data-action='embolden'><i class='fa fa-bold'></i></li>
+        <li class='available' data-action='bold'><i class='fa fa-bold'></i></li>
 
-        <li class='available' data-action='italisize'><i class='fa fa-italic'></i></li>
+        <li class='available' data-action='italic'><i class='fa fa-italic'></i></li>
 
         <li class='available' data-action='strikethrough'><i class='fa fa-strikethrough'></i></li>
 
@@ -15,18 +15,16 @@
 
         <li class='unavailable' data-action='unlink'><i class='fa fa-unlink'></i></li>
 
-        <li class='unavailable' data-action='listol'><i class='fa fa-list-ol'></i></li>
+        <li class='available' data-action='insertorderedlist'><i class='fa fa-list-ol'></i></li>
 
-        <li class='unavailable' data-action='listul'><i class='fa fa-list-ul'></i></li>
+        <li class='available' data-action='insertunorderedlist'><i class='fa fa-list-ul'></i></li>
 
         <li class='available' data-action='photo'><i class='fa fa-camera'></i></li>
-
-        <li class='available' data-action='blockquote'><i class='fa fa-quote-left'></i></li>
 
         <li class='available' data-action='html'><i class='fa fa-html5'></i></li>
       </ul>
     </textoptions>
-    <texttextarea id="myArea1" tabindex='1' name='content[text]'>
+    <texttextarea contenteditable="true" tabindex='1' name='content[text]'>
     </texttextarea>
   </form>
 </textpostform>
