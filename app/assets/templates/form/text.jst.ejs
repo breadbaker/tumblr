@@ -11,9 +11,9 @@
 
         <li class='available' data-action='strikethrough'><i class='fa fa-strikethrough'></i></li>
 
-        <li class='unavailable' data-action='link'><i class='fa fa-link'></i></li>
+        <li class='unavailable needstring new-link-form' data-action='linkForm'><i class='fa fa-link'></i></li>
 
-        <li class='unavailable' data-action='unlink'><i class='fa fa-unlink'></i></li>
+        <li class='unavailable needstring' data-action='unlink'><i class='fa fa-unlink'></i></li>
 
         <li class='available' data-action='insertorderedlist'><i class='fa fa-list-ol'></i></li>
 
@@ -26,5 +26,15 @@
     </textoptions>
     <texttextarea contenteditable="true" tabindex='1' name='content[text]'>
     </texttextarea>
+    <specbox class='modal trans hide hidden'>
+    <cornerangle></cornerangle>
+      <roundform>
+        <input type='text' class='url' placeholder='Link URL'>
+        <input type='text' class='title' placeholder='Title (optional)'>
+      </roundform>
+      <button class='wide round bk-dark-grey white'>Insert Link</button>
+    </specbox>
+
+    <textarea id='htmlEdit' class='hide hidden'></textarea>
   </form>
 </textpostform>

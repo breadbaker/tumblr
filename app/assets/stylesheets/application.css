@@ -22,11 +22,37 @@ html, body {
 .hidden{ opacity:0; z-index:-1 !important;}
 .hide{display:none;}
 .trans  {
-  -webkit-transition: all .5s ease-in-out;
-  -moz-transition: all .5s ease-in-out;
-  -o-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
+
+overlay {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(51,51,51,0.7);
+  z-index: 10;
+}
+
+.modal {
+  z-index: 11;
+  position: absolute;
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 5%;
+  opacity:0;
+}
+
+.modal_active {
+  opacity: 1 !important;
+  background-color: white;
+}
+
 
 a {
   text-decoration: none;
@@ -311,14 +337,23 @@ roundform input {
   width:100%;
   border: 1px solid grey;
 }
+
 roundform input:nth-of-type(1) {
-  border-bottom:none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-roundform input:nth-last-of-type(1) {
+roundform input:nth-of-type(2) {
   border-top:none;
+}
+
+roundform input:nth-last-of-type(2) {
+  border-bottom:none;
+}
+
+roundform input:nth-last-of-type(1) {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -385,6 +420,7 @@ img.photourl {
   height: auto;
 }
 textpostform input{
+  position:relative;
   display: block;
   width: 99%;
   line-height: 22px;
@@ -425,8 +461,8 @@ textoptions {
 }
 
 
-li.unavailable {
-  color: rgb(227,227,227);
+li.unavailable, li.tempunavailable {
+  color: rgb(227,227,227) !important;
 }
 li.available {
   color: rgb(172,172,172);
@@ -435,4 +471,50 @@ li.available {
 li.activated {
   color: rgb(86,156,198);
 }
+
+#htmlEdit {
+  width: 100%;
+  line-height: 22px;
+  border: none;
+  min-height: 200px;
+}
+
+
+specbox {
+  display: block;
+  position: absolute;
+  top: 75px;
+  left: 40px;
+  width: 220px;
+  border-radius: 10px;
+  margin: 0;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  border: 1px solid grey;
+  padding: 8px;
+}
+specbox cornerangle {
+  top: -8px;
+  left: 120px;
+  border: 16px solid white;
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+}
+
+specbox roundform {
+  width: 245px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+specbox button {
+  width: 100%;
+  border-radius: 6px;
+  margin:auto;
+  line-height: 32px;
+  font-size: 14px;
+  border:none;
+  background-color: rgb( 157, 166, 175 );
+}
+
+
 
