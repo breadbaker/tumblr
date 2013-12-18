@@ -6,21 +6,18 @@
   </navLeft>
 
   <navRight>
-    <span>
+    <topitem data-action='dash'>
       <i class='fa fa-home'></i>
-    </span>
-    <span>
-      <i class='fa fa-envelope'></i>
-    </span>
-    <span>
+    </topitem>
+    <topitem data-action='help'>
       <i class='fa fa-question-circle'></i>
-    </span>
-    <span>
+    </topitem>
+    <topitem data-action='settings'>
       <i class='fa fa-cog'></i>
-    </span>
-    <span id='logout'>
+    </topitem>
+    <topitem data-action='logout'>
       <i class='fa fa-power-off'></i>
-    </span>
+    </topitem>
     <searchBar>
       <input type='text' id='search' placeholder='Search Tumblr' >
     </searchBar>
@@ -31,6 +28,8 @@
   <maincontent>
     <article id='quick-dash' class='group'>
     </article>
+    <posts>
+    </posts>
   </maincontent>
 
   <sidebar>
@@ -39,6 +38,9 @@
         <li>
           <username>
             <%= Tumblr.user.get('username') %>
+            <a href='#blog/<%= Tumblr.user.get("username") %>'>
+              www.tumbler-clone<%= Tumblr.user.get('username') %>
+            </a>
           </username>
         </li>
         <li>

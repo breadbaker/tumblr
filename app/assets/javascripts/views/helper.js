@@ -16,6 +16,12 @@ _.extend(Backbone.View.prototype, {
       , time);
   },
 
+  empty: function(el,time){
+    setTimeout(function(){
+      el.html('')
+    }, time);
+  },
+
   hideShow: function(el1, el2, time){
     this.hide(el1,time);
     var that = this;

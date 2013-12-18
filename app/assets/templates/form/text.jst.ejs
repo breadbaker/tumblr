@@ -1,7 +1,7 @@
-<textpostform class='hidden hide trans group'>
+
   <form>
     <input type='hidden' name='post[content_type]'>
-    <input type='text' name='content[title]' placeholder='Title'>
+    <input type='text' id='text-post-title' class='line-22 nofocus nobord' name='content[title]' placeholder='Title'>
 
     <textoptions class=''>
       <ul class='editoptions'>
@@ -19,22 +19,25 @@
 
         <li class='available' data-action='insertunorderedlist'><i class='fa fa-list-ul'></i></li>
 
-        <li class='available' data-action='photo'><i class='fa fa-camera'></i></li>
+        <li class='available' id='new-photo-icon' data-action='photo'><i class='fa fa-camera'></i></li>
+        <input class='hide' type='file' id='new-photo-src'>
+
 
         <li class='available' data-action='html'><i class='fa fa-html5'></i></li>
       </ul>
     </textoptions>
-    <texttextarea contenteditable="true" tabindex='1' name='content[text]'>
+    <texttextarea class='nofocus thick' contenteditable="true" tabindex='1' name='content[text]'>
     </texttextarea>
-    <specbox class='modal trans hide hidden'>
-    <cornerangle></cornerangle>
-      <roundform>
-        <input type='text' class='url' placeholder='Link URL'>
-        <input type='text' class='title' placeholder='Title (optional)'>
-      </roundform>
-      <button class='wide round bk-dark-grey white'>Insert Link</button>
-    </specbox>
+    <imageprogressbar class='hide white'>
+      <p>Processing</p>
+      <progressmeter>
+        <p>Processing</p>
+      </progressmeter>
+    </imageprogressbar>
+
 
     <textarea id='htmlEdit' class='hide hidden'></textarea>
+
   </form>
-</textpostform>
+
+    <%= JST['form/publish']() %>

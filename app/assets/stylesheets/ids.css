@@ -1,0 +1,21 @@
+
+#quick-dash quickdashbubble ul li{
+  border-left:1px solid grey;
+}
+#quick-dash quickdashbubble ul li:nth-of-type(1){
+  border-left:none;
+}
+#quick-dash quickdashbubble ul {
+  margin-top: 0px;
+}
+#quick-dash quotebubble {
+  z-index: 6;
+  min-height: inherit !important;
+}
+
+#htmlEdit {
+  width: 100%;
+  line-height: 22px;
+  border: none;
+  min-height: 200px;
+}

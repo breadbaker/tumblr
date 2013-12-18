@@ -13,4 +13,16 @@ class UsersController < ApplicationController
       head :bad_request
     end
   end
+
+  def show
+    begin
+      user = User.find_by_username(params[:id])
+      posts = user.posts
+      render json: posts
+    rescue StandardError => e
+      dan_log(e.message)
+      head :bad_request
+    end
+
+  end
 end

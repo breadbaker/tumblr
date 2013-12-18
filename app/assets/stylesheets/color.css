@@ -1,0 +1,35 @@
+.bk-light-blue {
+  background-color: rgb(82,158,204);
+}
+
+.bk-grey {
+  background-color: rgb(157,166,175);
+}
+
+.bk-white {
+  background-color: white;
+}
+.red{
+  color: rgba(220,110,83,1);
+}
+.blue{
+  color: rgba(92,176,220,1);
+}
+.green{
+  color: rgba(103,149,194,1);
+}
+.orange{
+  color: rgba(243,163,67,1);
+}
+.purple{
+  color: rgba(176,138,200,1);
+}
+.grey{
+  color: rgba(130,141,149,1);
+}
+.white{
+  color: white;
+}
+.black {
+  color: black;
+}

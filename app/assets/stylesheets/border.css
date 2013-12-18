@@ -1,0 +1,32 @@
+.round-big {
+  border-radius: 12px;
+}
+
+.round-med {
+  border-radius: 8px;
+}
+
+.round-small {
+  border-radius: 4px;
+}
+
+.round-small-left {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.round-small-right {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.nobord {
+  border:none;
+}
+
+.bord-right {
+  border-right: 1px solid;
+}
+
+
+.nofocus {
+  outline: 0px solid transparent;
+}

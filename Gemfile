@@ -17,6 +17,8 @@ gem 'bcrypt-ruby', require: 'bcrypt'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 gem 'backbone-on-rails'

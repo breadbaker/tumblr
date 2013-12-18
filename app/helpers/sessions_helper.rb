@@ -14,7 +14,6 @@ module SessionsHelper
   def current_user
     dan_log(cookies[:token])
     @current_user ||= User.find_by_token(cookies[:token])
-    #@current_user= User.find(2)
     unless @current_user
       head :bad_request
       raise

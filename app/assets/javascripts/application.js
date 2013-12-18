@@ -16,7 +16,7 @@
 //= require moveCursor
 //= require string
 //= require underscore
-//= require danebit
+//= require breaditor
 //= require backbone
 //= require tumblr
 //= require_tree ../templates

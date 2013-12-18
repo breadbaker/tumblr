@@ -1,0 +1,50 @@
+html, body {
+  z-index:2;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  background-color: rgb(51,81,110);
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0;
+}
+
+input:focus {
+    outline-width: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+}
+
+
+nav {
+  line-height: 90px;
+  display: block;
+  width: 800px;
+  margin: auto;
+}
+
+
+
+article{
+  margin-bottom: 14px;
+}

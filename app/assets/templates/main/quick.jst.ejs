@@ -3,53 +3,53 @@
     <img src='<%= Tumblr.user.get("avatar") %>'>
   </userlogo>
   <quotebubble class='group'>
-    <cornerangle></cornerangle>
     <quickdashbubble class='trans'>
 
       <ul class='group' >
-        <li>
-          <quickitem>
-            <i class="black fa fa-sort-alpha-asc"></i>
+        <li class='left'>
+          <quickitem data-template='Text'>
+            <i class="black fa fa-sort-alpha-asc font-32 "></i>
             <p>Text</p>
           </quickitem>
         </li>
-        <li>
-          <quickitem>
-            <i class="red fa fa-camera"></i>
+        <li class=' left'>
+          <quickitem data-template='Photo'>
+            <i class="red fa fa-camera font-32 "></i>
             <p>Photo</p>
           </quickitem>
         </li>
-        <li>
+        <li class='left'>
           <quickitem>
-            <i class="orange fa fa-quote-left"></i>
+            <i class="orange fa fa-quote-left font-32 "></i>
             <p>Quote</p>
           </quickitem>
         </li>
-        <li>
+        <li class='left'>
           <quickitem>
-            <i class="green fa fa-link"></i>
+            <i class="green fa fa-link font-32 "></i>
             <p>Link</p>
           </quickitem>
         </li>
-        <li>
-          <quickitem>
-            <i class="blue fa fa-comment-o"></i>
+        <li class='left'>
+          <quickitem data-template='comment'>
+            <i class="blue fa fa-comment-o font-32 "></i>
             <p>Chat</p>
           </quickitem>
         </li>
-        <li>
+        <li class='left'>
           <quickitem>
-            <i class="purple fa fa-headphones"></i>
+            <i class="purple fa fa-headphones font-32 "></i>
             <p>Audio</p>
           </quickitem>
         </li>
-        <li>
+        <li class='left'>
           <quickitem>
-            <i class="grey fa fa-video-camera"></i>
+            <i class="grey fa fa-video-camera font-32 "></i>
             <p>Video</p>
           </quickitem>
         </li>
       </ul>
     </quickdashbubble>
-    <%= JST['form/text']() %>
+    <posttemplate class='hide'>
+    </posttemplate>
   </quotebubble>
