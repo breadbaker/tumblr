@@ -25,47 +25,17 @@
 </nav>
 
 <mainwrapper class="group">
-  <maincontent>
-    <article id='quick-dash' class='group'>
-    </article>
-    <posts>
-    </posts>
-  </maincontent>
 
-  <sidebar>
-    <mainitems>
-      <ul>
-        <li>
-          <username>
-            <%= Tumblr.user.get('username') %>
-            <a href='#blog/<%= Tumblr.user.get("username") %>'>
-              www.tumbler-clone<%= Tumblr.user.get('username') %>
-            </a>
-          </username>
-        </li>
-        <li>
-          <i class='fa fa-file-text-o'></i>
-          Posts
-        </li>
-        <li>
-          <i class='fa fa-user'></i>
-          Followers
-        </li>
-        <li>
-          <i class='fa fa-flash'></i>
-          Activity
-        </li>
-        <li>
-          <i class='fa fa-wheelchair'></i>
-          Members
-        </li>
-        <li>
-          <i class='fa fa-eye'></i>
-          Poop
-        </li>
+  <dashview class='top-view'>
+    <%= JST['main/dash']() %>
+  </dashview>
 
-      </ul>
-    </mainitems>
-  </sidebar>
+  <helpview class='top-view'>
+    <%= JST['top/help']() %>
+  </helpview>
+
+  <accountview class='top-view'>
+    <%= JST['top/settings']() %>
+  </accountview>
 
 </mainwrapper>

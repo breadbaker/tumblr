@@ -2,8 +2,24 @@
   line-height:22px;
 }
 
+.line-34 {
+  line-height: 34px;
+}
+
 .width-100 {
   width: 100%;
+}
+
+.width-70 {
+  width: 70%;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-30 {
+  width: 30%;
 }
 
 .wide-220 {

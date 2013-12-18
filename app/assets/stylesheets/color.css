@@ -6,6 +6,14 @@
   background-color: rgb(157,166,175);
 }
 
+.bk-green {
+  background-color: rgb(155, 204, 132);
+}
+
+.bk-red {
+  background-color: rgb(236, 141, 141);
+}
+
 .bk-white {
   background-color: white;
 }

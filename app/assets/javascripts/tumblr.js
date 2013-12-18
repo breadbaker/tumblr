@@ -8,19 +8,13 @@ window.Tumblr = {
 
     Tumblr.papaEl = $('papael');
 
+    Tumblr.user = new Tumblr.Models.User();
+
     Tumblr.router = new Tumblr.Routers.Main();
-    Tumblr.userPosts = new Tumblr.Collections.Posts();
-    Tumblr.userPosts.fetch({
-      success: function(){
-        $.post('/sessions', function(resp){
-          Tumblr.user.set(resp.user);
-          Tumblr.topView = new Tumblr.Views.TopView();
-        });
-      },
-      error: function(){
-        Tumblr.router.login();
-      }
-    });
+    Tumblr.loginView = new Tumblr.Views.LoginView();
+
+
+
     Backbone.history.start();
   }
 };

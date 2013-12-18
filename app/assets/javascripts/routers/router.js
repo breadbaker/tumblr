@@ -9,12 +9,15 @@ Tumblr.Routers.Main = Backbone.Router.extend({
   },
 
   posts: function(){
-    
-    Tumblr.topView.dash();
+    if(Tumblr.user.get('id')) {
+      Tumblr.topView.dash();
+    } else {
+      this.login();
+    }
   },
 
   login: function(){
-    var loginView = new Tumblr.Views.LoginView();
+    Tumblr.loginView.setBackground();
   },
 
   blog: function(id) {

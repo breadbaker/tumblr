@@ -3,6 +3,11 @@ Tumblr::Application.routes.draw do
   resources :users
   resources :sessions
 
+  get '/follow_ids', to: 'users#follow_ids'
+  post '/follow/:id', to: 'users#follow'
+
+  post '/unfollow/:id', to: 'users#unfollow'
+
   resources :texts
   resources :photos
   resources :posts

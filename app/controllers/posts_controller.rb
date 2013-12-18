@@ -26,6 +26,19 @@ class PostsController < ApplicationController
     render json: @post
   end
 
+  def destroy
+    begin
+      @post = current_user.posts.where("id = ?", params[:id]).first
+      @post.delete_content
+      @post.destroy
+    rescue StandardError => e
+      head :bad_request
+      dan_log(e.message)
+    end
+
+    head :ok
+  end
+
 
   def create
     begin

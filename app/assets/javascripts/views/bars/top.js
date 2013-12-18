@@ -1,28 +1,29 @@
 Tumblr.Views.TopView = Backbone.View.extend({
+
   initialize: function(){
-    this.dash();
-  },
-
-  addHandlers: function() {
-    var that = this;
-    $('topitem').off();
-    $('topitem').on('click', function(e){
-      try {
-        var target = $(e.target)
-        var action = target.attr('data-action');
-
-        that[action].call(that,target);
-      }
-      catch(e) {}
-    });
-  },
-
-  dash: function() {
     $('papael').html(JST['main/main']);
+    this.addHandlers();
+    Tumblr.publishView = new Tumblr.Views.PublishView();
+    this.quickdash = new Tumblr.Views.QuickView();
+    this.accountView = new Tumblr.Views.AccountView();
+    //this.helpView = new Tumblr.Views.HelpView();
 
-    $('#quick-dash').html(JST['main/quick']());
+    this.renderPosts();
+    this.dash();
 
+    Tumblr.currentPost = new Tumblr.Models.Post();
+
+    window.onbeforeunload = function(e) {
+      Tumblr.currentPost.save([], {async: false});
+    };
+
+
+
+  },
+
+  renderPosts: function() {
     var renderedPost;
+    $('posts').html('');
 
     _.each(Tumblr.userPosts.models, function(post){
       renderedPost = JST['posts/'+post.attributes.content_type]({
@@ -32,31 +33,41 @@ Tumblr.Views.TopView = Backbone.View.extend({
       });
       $('posts').append(renderedPost);
     });
-    this.addHandlers();
+  },
 
+  addHandlers: function() {
+    console.log('add');
+    var that = this;
+    $('papael').delegate('topitem','click', function(e){
+      try {
+        var target = $(e.target).closest('topitem');
+        var action = target.attr('data-action');
 
-    Tumblr.currentPost = new Tumblr.Models.Post();
+        that[action].call(that,target);
+      }
+      catch(e) {}
+    });
+  },
 
-    window.onbeforeunload = function(e) {
-      Tumblr.currentPost.save([], {async: false});
-    };
+  dash: function() {
+    this.viewPortion($('dashview'));
+  },
 
-    Tumblr.publishView = new Tumblr.Views.PublishView();
-    this.quickdash = new Tumblr.Views.QuickView();
+  viewPortion: function(el) {
+    this.hideShow($('.top-view'),el);
   },
 
   help: function() {
-    $('mainwrapper').html(JST['top/help']());
-    this.helpView = new Tumblr.Views.HelpView();
+    this.viewPortion($('helpview'));
+
   },
 
   settings: function() {
-    $('mainwrapper').html(JST['top/account']());
-    this.accountView = new Tumblr.Views.AccountView();
+    this.viewPortion($('accountview'));
   },
 
   logout: function() {
-    document.cookie = '';
+    Tumblr.user.destroy();
     Tumblr.router.login();
   }
 });

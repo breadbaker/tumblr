@@ -5,9 +5,22 @@
   float:right;
 }
 
+.al-right {
+  text-align:right;
+}
+
+.al-left {
+  text-align:left;
+}
+.al-center {
+  text-align:center;
+}
 
 
 
 .right {
   float: right;
+}
+.left {
+  float:left;
 }

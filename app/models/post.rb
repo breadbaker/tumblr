@@ -22,6 +22,13 @@ class Post < ActiveRecord::Base
     self.content_type.constantize.find_by_post_id(self.id)
   end
 
+  def delete_content
+    begin
+      self.content.destroy
+    rescue
+    end
+  end
+
   def has_content?
     content_type = self.content_type
     return false unless content_type

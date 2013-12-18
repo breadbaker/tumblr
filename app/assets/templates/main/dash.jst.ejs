@@ -1,0 +1,38 @@
+<maincontent>
+  <article id='quick-dash' class='group'>
+    <%= JST['main/quick']() %>
+  </article>
+  <posts>
+  </posts>
+</maincontent>
+
+<sidebar>
+  <mainitems>
+    <ul>
+      <li>
+        <username>
+          <p  class='font-32 marg-0'>
+            <%= Tumblr.user.get('username') %>
+          </p>
+
+          <input type='text' class='hide hidden' value=" <%= Tumblr.user.get('username') %>">
+          <a class='font-12' href='#blog/<%= Tumblr.user.get("username") %>'>
+            www.tumbler-clone<%= Tumblr.user.get('username') %>
+          </a>
+        </username>
+      </li>
+      <li class='baritem' data-action='followers'>
+        <i class='fa fa-user'></i>
+        Followers
+      </li>
+      <li class='baritem' data-action='activity'>
+        <i class='fa fa-flash'></i>
+        Activity
+      </li>
+      <li class='baritem' data-action='members'>
+        <i class='fa fa-eye'></i>
+        Members
+      </li>
+    </ul>
+  </mainitems>
+</sidebar>

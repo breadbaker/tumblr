@@ -1,7 +1,31 @@
+body {
+  font-family: sans-serif;
+}
+
 .helv {
   font: normal 14px/1.4 "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;
 }
 
 .font-32 {
   font-size: 32px;
+}
+
+.font-42 {
+  font-size: 42px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-12 {
+  font-size:12px;
+}
+
+.font-16 {
+  font-size: 14px;
+}
+
+.bold {
+  font-weight:bold;
 }

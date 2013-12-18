@@ -1,0 +1,35 @@
+<form>
+<div class='bk-white thick round round-15'>
+  <div class='width-70 marg-auto'>
+
+  <div class='group bord-bottom line-22 padd-30'>
+    <h1 class='left'>Account</h1>
+    <saveaccountbutton class='bk-grey right white round-small thick-side dim-text'>
+
+      <span>Save</span>
+    </saveaccountbutton>
+  </div>
+  <div class='group bord-bottom padd-30'>
+    <label class='font-16 bold left width-30 block al-right thick'>Email address</label>
+    <div class='right width-60'>
+      <input class='formleft thick font-14' type='text' name='user[email]' value='<%= Tumblr.user.get("email") %>'>
+    </div>
+  </div>
+  <div class='group  padd-30'>
+    <label class='left width-30 font-16 bold block al-right thick'>Password</label>
+
+    <div class='right width-60'>
+      <label class='block left'>Current Password
+        <input class='formleft left thick font-14' type='password' name='user[password]'>
+      </label>
+      <label class='left'>New Password
+        <input class='formleft thick left font-14' type='password' name='user[new]'>
+      </label>
+
+      <label class='left'>Confirm Password
+        <input class='formleft thick font-14' type='password' name='user[confirm]'>
+      </label>
+    </div>
+  </div>
+</div>
+</form>

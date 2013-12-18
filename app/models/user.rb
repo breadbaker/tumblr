@@ -6,6 +6,24 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email
 
   has_many(
+    :follows_recieved,
+    class_name: 'Follow',
+    foreign_key: :followee_id,
+    primary_key: :id
+  )
+
+  has_many :followers, through: :follows_recieved, source: :follower
+
+  has_many(
+    :follows_sent,
+    class_name: 'Follow',
+    foreign_key: :follower_id,
+    primary_key: :id
+  )
+
+  has_many :followees, through: :follows_sent, source: :followee
+
+  has_many(
     :posts,
     class_name: "Post",
     foreign_key: :user_id,
@@ -13,7 +31,37 @@ class User < ActiveRecord::Base
   )
 
   def legit_email
-    raise unless self.email && self.email.match(/^.+@.+$/)
+    raise "Invalid Email" unless self.email && self.email.match(/^.+@.+$/)
+  end
+
+  def change_pass!(data)
+    return unless data[:new].length > 0
+    raise "Incorrect Password" unless self.has_password?(data[:password])
+
+    if data[:new] != data[:confirm]
+      raise 'Passwords do not match'
+    end
+    self.password= data[:new]
+
+    return 'Password Changed'
+  end
+
+  def change_username!(name)
+    return if name.nil?
+    name_taken = User.find_by_username(name)
+    raise "Name Taken" if name_taken
+    self.username = name
+
+    return "Name Changed"
+  end
+
+  def change_email!(data)
+
+    user_with = User.find_by_email(data[:email])
+    raise 'Email Taken' if user_with
+    self.email = data[:email]
+
+    return "Email Changed"
   end
 
   def self.find_by_credentials!( user )
@@ -41,4 +89,5 @@ class User < ActiveRecord::Base
   def has_password?(password)
     BCrypt::Password.new(self.pwd_hash).is_password?(password)
   end
+
 end

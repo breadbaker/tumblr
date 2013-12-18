@@ -21,10 +21,19 @@ class SessionsController < ApplicationController
       @user = User.find_by_token(cookies[:token])
       @user = User.find_by_credentials!(params[:user]) unless @user
       login(@user)
+
       render json: {user: @user}, status: 200
     rescue StandardError => e
       logger.info e.message
       head :bad_request
     end
+  end
+
+  def destroy
+    begin
+      logout
+    rescue
+    end
+    head :ok
   end
 end

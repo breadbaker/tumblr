@@ -2,6 +2,16 @@
   margin-top: 4px;
 }
 
+.space-30 {
+  margin: 30px;
+}
+
+.padd-0 {
+  padding: 0px;
+}
+.padd-30 {
+  padding: 30px;
+}
 .thick {
   padding: 10px;
 }
@@ -15,3 +25,10 @@
   padding-left: 10px;
 }
 
+.marg-0 {
+  margin: 0;
+}
+
+.marg-auto {
+  margin:auto;
+}

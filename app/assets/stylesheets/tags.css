@@ -62,9 +62,11 @@ navRight topitem:hover {
 }
 quickitem p{
   margin-top: 3px;
-  text-align:center;
+
+  font-size: 15px;
 }
 quickitem {
+  text-align:center;
   float: left;
   padding-left: 11px;
 
@@ -81,7 +83,7 @@ quotebubble {
   display: block;
   float:left;
   padding:10px;
-  width: 400px;
+  width: 440px;
   min-height: 100px;
   margin-left: 10px;
   border-radius: 8px;
@@ -305,7 +307,7 @@ cancelbutton {
   float:right;
 }
 
-quickdashbubble, texttitle, texttext, textpostform, textoptions{
+quickdashbubble, texttitle, texttext, textpostform, textoptions {
   display: block;
 
 }
@@ -351,14 +353,14 @@ mainwrapper {
 maincontent {
   display: block;
   float: left;
-  width: 520px;
+  width: 540px;
 }
 
 sidebar {
   display: block;
   float: right;
   color: white;
-  width: 220px;
+  width: 200px;
   margin: 20px;
 }
 
@@ -394,3 +396,14 @@ searchBar {
 topitem {
   display:inline;
 }
+
+username input {
+  background-color: rgb(44, 71, 98);
+
+  width: 160px;
+  font-family: sans-serif;
+  color: white;
+  border: none;
+  font-size: 32px;
+}
+

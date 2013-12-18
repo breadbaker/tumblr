@@ -8,7 +8,7 @@ module SessionsHelper
   end
 
   def logout
-    user.reset_token!
+    current_user.reset_token!
   end
 
   def current_user
@@ -16,7 +16,6 @@ module SessionsHelper
     @current_user ||= User.find_by_token(cookies[:token])
     unless @current_user
       head :bad_request
-      raise
     end
 
     @current_user

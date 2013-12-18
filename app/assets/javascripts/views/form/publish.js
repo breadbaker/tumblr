@@ -30,15 +30,19 @@ Tumblr.Views.PublishView = Backbone.View.extend({
     console.log('pre');
   },
 
+  exit: function() {
+    this.hide($('overlay.lowZ'));
+    this.hideShow($('posttemplate'),$('quickdashbubble'),400);
+    this.empty($('posttemplate'),400);
+    Tumblr.postViewForm = null;
+  },
+
   save: function(){
     var that = this;
     Tumblr.currentPost.save({},
     {
       success: function(e){
-        that.hide($('overlay.lowZ'));
-        that.hideShow($('posttemplate'),$('quickdashbubble'),400);
-        that.empty($('posttemplate'),400);
-        Tumblr.postViewForm = null;
+        that.exit();
       },
       error: function(e){
         console.log(e);
@@ -47,8 +51,17 @@ Tumblr.Views.PublishView = Backbone.View.extend({
     });
   },
 
+  cancel: function() {
+    Tumblr.currentPost.destroy();
+    this.exit();
+  },
+
   addHandlers: function() {
     var that = this;
+    $('posttemplate').undelegate('cancelbutton','click');
+    $('posttemplate').delegate('cancelbutton','click', function(){
+      that.cancel();
+    });
     $('posttemplate').undelegate('iconbutton', 'mousup');
     $('posttemplate').delegate('iconbutton', 'mouseup', function(e){
       that.publishOptions(e);

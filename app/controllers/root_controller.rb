@@ -4,6 +4,6 @@ class RootController < ApplicationController
   end
 
   def background
-    render json: [Photo.first(offset: rand(Photo.count))]
+    render json: Photo.all
   end
 end
