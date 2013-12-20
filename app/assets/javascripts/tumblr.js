@@ -5,17 +5,13 @@ window.Tumblr = {
   Routers: {},
   initialize: function() {
     Tumblr.user = new Tumblr.Models.User();
-
-    Tumblr.papaEl = $('papael');
-
-    Tumblr.user = new Tumblr.Models.User();
-
-    Tumblr.router = new Tumblr.Routers.Main();
+    Tumblr.blogView = new Tumblr.Views.BlogView();
     Tumblr.loginView = new Tumblr.Views.LoginView();
-
-
-
+    Tumblr.router = new Tumblr.Routers.Main();
+    window.location.hash = '';
     Backbone.history.start();
+    
+  
   }
 };
 

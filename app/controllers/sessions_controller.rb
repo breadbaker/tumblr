@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
   skip_before_filter :current_user, only: [:create]
-  layout 'login'
 
   def new
   end
@@ -21,8 +20,12 @@ class SessionsController < ApplicationController
       @user = User.find_by_token(cookies[:token])
       @user = User.find_by_credentials!(params[:user]) unless @user
       login(@user)
-
-      render json: {user: @user}, status: 200
+      data = {
+        user: @user,
+        followers: @user.followers,
+        followees: @user.followees,
+      }
+      render json: data, status: 200
     rescue StandardError => e
       logger.info e.message
       head :bad_request

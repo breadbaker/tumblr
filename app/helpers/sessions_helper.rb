@@ -4,7 +4,6 @@ module SessionsHelper
     logger.info 'setting token'
     user.reset_token!
     cookies[:token] = { :value => user.token, :expires => 9.hour.from_now }
-  #  session[:token] = user.token
   end
 
   def logout

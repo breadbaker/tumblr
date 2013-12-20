@@ -8,6 +8,13 @@ Tumblr.Views.QuickView = Backbone.View.extend({
     };
 
     Tumblr.publishView = new Tumblr.Views.PublishView();
+
+    this.followedLinks();
+    var that = this;
+    this.listenTo(Tumblr.followees, 'add', function(){that.renderUsers()});
+    this.listenTo(Tumblr.followees, 'remove', function(){that.renderUsers()});
+    this.listenTo(Tumblr.followees, 'add', function(){that.followedLinks()});
+    this.listenTo(Tumblr.followees, 'remove', function(){that.followedLinks()});
   },
 
   addHandlers: function() {
@@ -29,26 +36,58 @@ Tumblr.Views.QuickView = Backbone.View.extend({
       var action = $(this).attr('data-action');
       that[action].call(that);
     });
+
+    $('mainwrapper').undelegate('.all-users button', 'click');
+    $('mainwrapper').delegate('.all-users button', 'click',function(e){
+      var action = $(this).attr('data-action');
+      var id = $(this).closest('div').attr('data-id');
+      that[action].call(that, id);
+    });
   },
 
   followers: function(){
-    this.followers = new Tumblr.Collections.Followers();
-
-    $()
-    console.log('follo');
+    this.renderFollowers();
   },
 
-  renderUsers: function(users) {
+  followedLinks: function(){
+    $('.followed-links').html('');
 
-    $('maincontent').html('');
-    var renderedUser;
+    var renderedLink;
 
-    _.each(users.models, function(user){
-      renderedUser = JST['user']({
+    _.each(Tumblr.followees.models, function(user){
+      renderedLink = JST['user/link']({
         user: user
       });
-      $('maincontent').append(renderedUser);
+      $('.followed-links').append(renderedLink);
     });
+
+  },
+
+  renderUsers: function() {
+
+
+    $('maincontent').html(JST['user/user-holder']({
+      title: 'All Users'
+    }));
+
+    var renderedUser;
+
+    _.each(Tumblr.members.models, function(user){
+      renderedUser = JST['user/user']({
+        user: user,
+        following: Tumblr.followees.get(user.get('id')) ? true : false,
+        follower: Tumblr.followers.get(user.get('id')) ? true : false
+      });
+      $('.all-users').append(renderedUser);
+    });
+  },
+
+  follow: function(id) {
+    $.post('/follow/'+id, function(){ Tumblr.followees.add(Tumblr.members.get(id))});
+  },
+
+  unfollow: function(id) {
+    $.post('/unfollow/'+id, function(){ Tumblr.followees.remove(Tumblr.members.get(id))});
   },
 
   members: function(){
@@ -58,14 +97,32 @@ Tumblr.Views.QuickView = Backbone.View.extend({
       type: 'GET',
       url: '/users',
       success: function(r) {
-        that.members = new Tumblr.Collections.Members(r.users);
-        that.follows = new Tumblr.Collections.Follows(r.follow_ids);
-        that.renderUsers(that.members);
+        //Tumblr.follow_ids = new Tumblr.Collections.Follows(r.follow_ids);
+        Tumblr.members = new Tumblr.Collections.Members(r.users);
+        that.renderUsers();
       },
       error: function(r) {
         that.messageFail("we have no users", 3000);
       }
     }) ;
+  },
+
+  renderFollowers: function() {
+
+    $('maincontent').html(JST['user/user-holder']({
+      title: 'Followers'
+    }));
+
+    var renderedFollower;
+
+    _.each(Tumblr.followers.models, function(user){
+      renderedFollower = JST['user/user']({
+        user: user,
+        following: Tumblr.followees.get(user.get('id')) ? true : false,
+        follower: Tumblr.followers.get(user.get('id')) ? true : false
+      });
+      $('.all-users').append(renderedFollower);
+    });
   },
 
   nameChange: function(){

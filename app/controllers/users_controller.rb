@@ -5,13 +5,16 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    render json: {users: @users, follow_ids: Follow.find_all_by_follower_id(current_user.id,:select => "followee_id")}
+    render json: {users: @users}
+    #, follow_ids: Follow.find_all_by_follower_id(current_user.id,:select => "followee_id")
   end
 
   def create
     begin
+      dan_log(params[:user])
       @user = User.new(params[:user])
       login(@user)
+      @user.save
       render json: {user: @user}, status: 200
     rescue StandardError => e
       dan_log(e.message)
@@ -49,8 +52,8 @@ class UsersController < ApplicationController
   def show
     begin
       user = User.find_by_username(params[:id])
-      posts = user.posts
-      render json: posts
+      posts = user.posts.where("content_type IS NOT NULL  ")
+      render json: {user: user, posts: posts}
     rescue StandardError => e
       dan_log(e.message)
       head :bad_request
@@ -61,10 +64,12 @@ class UsersController < ApplicationController
   def follow
     begin
       followee = User.find(params[:id])
+      follow = Follow.find_by_follower_id_and_followee_id(current_user.id,params[:id])
+
       Follow.create({
         follower_id: current_user.id,
         followee_id: followee.id
-      })
+      }) unless follow
       head :ok
     rescue
       head :bad_request
@@ -73,8 +78,8 @@ class UsersController < ApplicationController
 
   def unfollow
     begin
-      followee = Follow.find_by_follower_id_and_followee_id(current_user.id,params[:id])
-      Follow.destroy()
+      follow = Follow.find_by_follower_id_and_followee_id(current_user.id,params[:id])
+      follow.destroy
       head :ok
     rescue
       head :bad_request

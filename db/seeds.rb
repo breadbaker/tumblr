@@ -39,8 +39,13 @@ def add_text(post)
     title: Faker::Company.bs
   })
 end
+
+def get_post_date
+  Random.rand(24).hours.ago
+end
 #build avatar list
 require 'open-uri'
+
 doc = Nokogiri::HTML(open("http://www.picgifs.com/avatars/fruit/?s=added&i=100"))
 imgs = doc.css('img').map { |img| img['src']}
 imgs.each do |i|
@@ -49,28 +54,123 @@ imgs.each do |i|
   end
 end
 
+blog_posts = []
 
-4.times do |i|
+
+# doc = Nokogiri::HTML(open(  'http://thebaxterbuilding.tumblr.com/'))
+# posts = doc.css('div.post').map{ |e| e.inner_html.gsub("\t",'').gsub("\n",'') }
+# user = User.create({
+#   username: "BerrysComics",
+#   password: 'password',
+#   email: "fake1@fake.com",
+#   avatar: "http://25.media.tumblr.com/avatar_4ed5fb2488e9_48.png"
+# })
+# posts.each do |posttext|
+#
+#   post = Post.create({
+#     post_date: get_post_date,
+#     user_id: user.id,
+#     content_type: "Text"
+#   })
+#   Text.create({
+#     post_id: post.id,
+#     text: posttext
+#   })
+#   post.save
+# end
+
+doc = Nokogiri::HTML(open(  'http://murrayscheese.tumblr.com/'))
+posts = doc.css('li.post').map{ |e| e.inner_html.gsub("\t",'').gsub("\n",'') }
 user = User.create({
-  username: "user#{i+1}",
+  username: "MurraysCheese",
   password: 'password',
-  email: "fake#{i}@fake.com",
-  avatar: Avatar.find(i+1).url
+  email: "fake4@fake.com",
+  avatar: "http://us.123rf.com/400wm/400/400/mediagram/mediagram1207/mediagram120700051/14539036-assortment-of-small-dutch-cheese-on-a-market.jpg"
 })
-puts user.avatar
+posts.each do |posttext|
 
-  (44 + Random.rand(12)).times do
-    post = Post.create({
-      post_date: DateTime.now.to_date,
-      user_id: user.id
-    })
-
-
-    Random.rand(2) == 0 ? add_photo(post) : add_text(post)
-
-    post.save
-  end
+  post = Post.create({
+    post_date: get_post_date,
+    user_id: user.id,
+    content_type: "Text"
+  })
+  Text.create({
+    post_id: post.id,
+    text: posttext
+  })
+  post.save
 end
+
+
+doc = Nokogiri::HTML(open(  'http://aspensnowmass.tumblr.com/'))
+posts = doc.css('article.post').map{ |e| e.inner_html.gsub("\t",'').gsub("\n",'') }
+user = User.create({
+  username: "Aspen",
+  password: 'password',
+  email: "fake3@fake.com",
+  avatar: "http://static.tumblr.com/dd6c06c56736970a92aff57fe89bfc5b/9qglsht/uCzmmjllh/tumblr_static_profile-picture.jpg"
+})
+posts.each do |posttext|
+
+  post = Post.create({
+    post_date: get_post_date,
+    user_id: user.id,
+    content_type: "Text"
+  })
+  Text.create({
+    post_id: post.id,
+    text: posttext
+  })
+  post.save
+end
+
+
+doc = Nokogiri::HTML(open( "http://rachelzoe.tumblr.com/"))
+posts = doc.css('div.box').map{ |e| e.inner_html.gsub("\t",'').gsub("\n",'') }
+user = User.create({
+  username: "Rachelzoe",
+  password: 'password',
+  email: "fake2@fake.com",
+  avatar:'http://31.media.tumblr.com/avatar_3f09db7c9d20_128.png'
+})
+posts.each do |posttext|
+
+  post = Post.create({
+    post_date: get_post_date,
+    user_id: user.id,
+    content_type: "Text"
+  })
+  Text.create({
+    post_id: post.id,
+    text: posttext
+  })
+  post.save
+end
+# blog_posts << posts
+#
+# blog
+#
+# 4.times do |i|
+# user = User.create({
+#   username: Faker::Name.first_name,
+#   password: 'password',
+#   email: "fake#{i}@fake.com"
+# })
+# doc = Nokogiri::HTML(open(  'http://dailydcu.com/'))
+# posts = doc.css('div.single_wrapper div.post').map{ |e| e.inner_html.gsub("\t",'').gsub("\n",'') }
+# posts.each do |posttext|
+#
+#   post = Post.create({
+#     post_date: DateTime.now.to_date,
+#     user_id: user.id,
+#     content_type: "Text"
+#   })
+#   Text.create({
+#     post_id: post.id,
+#     text: posttext
+#   })
+#   post.save
+# end
 
 
 
@@ -86,7 +186,7 @@ end
     if link.include?('imgur')
       codeurl = link.split('/')
       code = codeurl.last.split('.').first
-      Background.create({url: code})
+      Background.create({url: link})
     end
   end
 # end

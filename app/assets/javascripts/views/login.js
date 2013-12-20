@@ -3,9 +3,36 @@ Tumblr.Views.LoginView = Backbone.View.extend({
     this.subTemplate = JST['out/signup'];
     this.template = JST['out/outside'];
     this.url = '/users';
-    this.url = '/sessions';
     this.addHandlers();
-    this.send({});
+    this.checkSignedIn();
+  },
+
+  checkSignedIn: function() {
+    var that = this;
+    $.ajax({
+      type: 'POST',
+      url: '/sessions',
+      success: function(resp) {
+        that.setup(resp);
+        // if( resp.user ){
+   //        Tumblr.user.set(resp.user)
+   //        Tumblr.followees = new Tumblr.Collections.Followees(resp.followees);
+   //        Tumblr.followers = new Tumblr.Collections.Followers(resp.followers);
+   //        Tumblr.userPosts = new Tumblr.Collections.Posts();
+   //        Tumblr.userPosts.fetch({
+   //          success: function(){
+   //              Tumblr.user.set(resp.user);
+   //
+   //              Tumblr.topView = new Tumblr.Views.TopView();
+   //              Tumblr.router.posts();
+   //              $('loginview').html('');
+   //          },
+   //          error: function(){
+   //          }
+   //        });
+   //      }
+      }
+    });
   },
 
   setBackground: function(){
@@ -24,7 +51,7 @@ Tumblr.Views.LoginView = Backbone.View.extend({
   },
 
   currentBackground: function() {
-    var index = Math.floor(Math.random() * (100));
+    var index = Math.floor(Math.random() * (18));
     return this.background.at(index).get('url');
   },
 
@@ -33,42 +60,66 @@ Tumblr.Views.LoginView = Backbone.View.extend({
 
   },
 
-  send: function(data){
+  setup: function(resp){
+    if( resp.user ){
+      Tumblr.user.set(resp.user)
+      Tumblr.followees = new Tumblr.Collections.Followees(resp.followees);
+      Tumblr.followers = new Tumblr.Collections.Followers(resp.followers);
+      Tumblr.userPosts = new Tumblr.Collections.Posts();
+      Tumblr.userPosts.fetch({
+        success: function(){
+            Tumblr.user.set(resp.user);
+            Tumblr.followedUsers = new Tumblr.Collections.FollowedUsers(resp.followees);
+            Tumblr.topView = new Tumblr.Views.TopView();
+            Tumblr.router.posts();
+            $('loginview').html('');
+        },
+        error: function(){
+
+          that.toggleType();
+        }
+      });
+    }
+  },
+
+  send: function(){
     var that = this;
-    $.post(this.url, data, function(resp){
-      console.log(resp);
-      if( resp.user ){
-        Tumblr.user.set(resp.user)
-        Tumblr.userPosts = new Tumblr.Collections.Posts();
-        Tumblr.userPosts.fetch({
-          success: function(){
-              Tumblr.user.set(resp.user);
-              Tumblr.topView = new Tumblr.Views.TopView();
-          },
-          error: function(){
-            console.log('nologin');
-            that.setBackground();
-          }
-        });
-      } else {
-        that.setBackground();
+    var data = $('roundform').parent().serializeJSON();
+    $.ajax({
+      type: 'POST',
+      url: that.url,
+      data: data,
+      success: function(resp) {
+        that.setup(resp);
+      },
+      error: function(r) {
+        console.log(r);
+        that.messageFail("Invalid Login", 3000);
       }
     });
   },
 
   addHandlers: function(){
     var that = this;
-    $('papael').undelegate('.changeMode','click');
-    $('papael').delegate('.changeMode','click', function(){
+    $('loginview').undelegate('.changeMode','click');
+    $('loginview').delegate('.changeMode','click', function(){
       that.toggleType();
     });
-    $('papael').undelegate('.signup','click');
-    $('papael').delegate('.signup', 'click', function(e){
-      that.send(e);
+    $('loginview').undelegate('.signup','click');
+    $('loginview').delegate('.signup', 'click', function(e){
+      that.send();
+       e.preventDefault();
     });
-    $('papapel').undelegate('.signin','click');
-    $('papael').delegate('.signin', 'click', function(e){
-      that.signin(e);
+    $('loginview').delegate('roundfrom input', 'keypress', function(e){
+      if (e.keyCode == 13){
+        e.preventDefault();
+        that.send();
+      }
+    })
+    $('loginview').undelegate('.signin','click');
+    $('loginview').delegate('.signin', 'click', function(e){
+      that.send();
+      e.preventDefault();
     });
   },
 
@@ -81,8 +132,10 @@ Tumblr.Views.LoginView = Backbone.View.extend({
   toggleType: function(){
     if(this.subTemplate == JST['out/signup']) {
       this.subTemplate = JST['out/signin'];
+      this.url = '/sessions';
     } else {
       this.subTemplate = JST['out/signup'];
+      this.url = '/users';
     }
     var that = this;
     this.render();
@@ -90,7 +143,7 @@ Tumblr.Views.LoginView = Backbone.View.extend({
 
   render: function(){
     var that = this;
-    Tumblr.papaEl.html(this.template({
+    $('loginview').html(this.template({
       subTemplate: that.subTemplate(),
       background: that.currentBackground()
     }));

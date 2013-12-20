@@ -4,6 +4,6 @@ class RootController < ApplicationController
   end
 
   def background
-    render json: Photo.all
+    render json: Background.all
   end
 end

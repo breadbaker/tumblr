@@ -1,7 +1,9 @@
 .space-up {
   margin-top: 4px;
 }
-
+.space {
+  margin: 10px;
+}
 .space-30 {
   margin: 30px;
 }
@@ -28,7 +30,15 @@
 .marg-0 {
   margin: 0;
 }
+.marg-10 {
+  margin: 10px;
+}
 
 .marg-auto {
   margin:auto;
+}
+
+.marg-up-down {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }

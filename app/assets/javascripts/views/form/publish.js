@@ -24,6 +24,7 @@ Tumblr.Views.PublishView = Backbone.View.extend({
   privatize: function(li) {
     this.showPublishItem(li);
     $('postbutton span').html('Create Private Post');
+    Tumblr.currentPost.set('private',true);
   },
 
   previewNow: function(){

@@ -1,15 +1,23 @@
 Tumblr.Views.BlogView = Backbone.View.extend({
+
   initialize: function(){
-    this.render();
+    var that = this;
+    setTimeout( function(){
+      $('.top-level').addClass('hidden');
+      that.messageNotify(' Thanks for watching my presentation!',5000);
+    }, 110000)
   },
+
   render: function(){
 
-    $('papael').html(JST['blog/main']);
+    $('blogview').html(JST['blog/main']({
+      user: Tumblr.blogUser
+    }));
 
     var renderedPost;
 
-    _.each(Tumblr.userPosts.models, function(post){
-      renderedPost = JST['blog/post/'+post.attributes.content_type]({
+    _.each(Tumblr.blogPosts.models, function(post){
+      renderedPost = JST['blog/post/'+post.get('content_type')]({
         post: post.get('content')
       });
       $('posts').append(renderedPost);

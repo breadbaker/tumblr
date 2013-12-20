@@ -1,0 +1,13 @@
+<div data-id='<%= user.get("id") %>' class='group line-42 marg-10 parent'>
+  <img class='left wide-50 h-auto round-small' src='<%= user.get("avatar") %>'>
+<h1 class=' thick side left'>
+  <%= user.get('username') %>
+</h1>
+<% if( user.get('id') != Tumblr.user.get('id')) {%>
+  <% if( following ){ %>
+    <button data-action='unfollow' class='mid-button right-0 bk-blue round-small bold nobord'>unfollow</button>
+  <% }else{ %>
+    <button data-action='follow' class='mid-button right-0 bk-blue round-small bold nobord'>follow</button>
+  <% } %>
+<% } %>
+</div>

@@ -108,11 +108,15 @@ quotebubble img {
   margin-left:10%;
 }
 
+quotebubble a {
+  color: black;
+}
+
 
 
 userlogo img {
   width: 50px;
-  height: auto;
+  height: 50px;
   border-radius: 5px;
 }
 
@@ -213,6 +217,10 @@ texttextarea img{
 
 }
 
+texttextarea a,a:visited{
+  color:rgb(117, 115, 115);
+}
+
 textoptions {
   text-align: center;
 }
@@ -307,7 +315,7 @@ cancelbutton {
   float:right;
 }
 
-quickdashbubble, texttitle, texttext, textpostform, textoptions {
+quickdashbubble, texttitle, texttext, textpostform, textoptions loginview, topdashview, blogview{
   display: block;
 
 }
@@ -395,6 +403,21 @@ searchBar {
 
 topitem {
   display:inline;
+  position: relative;
+}
+
+topitem.active:after{
+  content: '';
+  display: block;
+  position: absolute;
+  /*margin-top: 44px;
+  margin-left: 17px;*/
+  top: 58px;
+  left: 7px;
+  border-top: 0px solid rgb(44, 71, 98);
+  border-bottom: 20px solid rgb(44, 71, 98);;
+  border-right: 20px solid rgba(255, 255, 255, 0);
+  border-left: 20px solid rgba(255, 255, 255, 0);
 }
 
 username input {
@@ -407,3 +430,40 @@ username input {
   font-size: 32px;
 }
 
+textoptions .specbox {
+  left: 25%;
+  border:none;
+  top: 0px ;
+  width: 200px;
+  text-align: center;
+  background-color:rgb(170, 169, 169);
+}
+textoptions .specbox:after {
+  content: '';
+  display: block;
+  position: absolute;
+
+  margin-left: calc( 50% - 10px );
+  top: 38px;
+  border-top: 10px solid rgb(170, 169, 169);
+  border-bottom: 0px solid rgb(170, 169, 169);
+  border-right: 10px solid rgba(255, 255, 255, 0);
+  border-left: 10px solid rgba(255, 255, 255, 0);
+
+}
+
+blogview a {
+  color: black;
+}
+
+
+textext img {
+  width: 60%;
+  margin:auto;
+  color: black;
+}
+
+postdate {
+  float: right;
+  margin-top: -30px;
+}

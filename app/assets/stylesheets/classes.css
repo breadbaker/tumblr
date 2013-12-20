@@ -74,7 +74,7 @@ img.photourl {
   width:100%;
   height: auto;
 }
-.spec-parent {
+.spec-parent, .parent {
   position:relative;
 }
 .specbox {
@@ -103,4 +103,46 @@ img.photourl {
 
   margin-left: 40%;
   top: 120px;
+}
+
+.mid-button{
+  height: 30px;
+  position: absolute;
+  top: calc(50% - 15px);
+
+
+}
+
+.all-users img {
+  width: 50px;
+}
+
+.photoImg img {
+  width: 80%;
+  margin:auto;
+  padding: 30px;
+}
+
+ul.tags {
+  width: 70%;
+  margin-left:10%;
+  float:left;
+  background-color: rgb(195, 184, 184);
+  border-radius: 6px;
+}
+
+ul.tags li {
+  float:left;
+}
+ul.tags li:nth-of-type(1){
+  font-weight:bold;
+  float:none;
+  font-size:14px;
+}
+
+section.meta {
+  display:none;
+}
+iframe {
+  display: none;
 }

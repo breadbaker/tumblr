@@ -68,16 +68,20 @@
             }
           });
       });
+      $('linkform, linkform *').on('click',function(e){
+        return false;
+      });
 
-      $('specbox button').off('click');
-      $('specbox button').on('click', function(e) {
+      $('linkform button').off('click');
+      $('linkform button').on('click', function(e) {
         e.preventDefault();
         if( $('specbox input.url').val() != '' ) {
           that.restoreSelection();
-          console.log(document.execCommand("createLink", false, $('specbox input.url').val()));
-          that.toggleSpecbox();
+          console.log(document.execCommand("createLink", false, $('linkform input').val()));
+          $('linkform').addClass('hide');
           //range.parentElement().setAttribute("target", "_blank");
         }
+        return false;
       });
     },
 
@@ -180,32 +184,25 @@
         , time);
     },
 
-    toggleSpecbox: function() {
+    showSpecForm: function(form) {
       var that = this;
-
-      if ($('specbox').hasClass('modal_active') ) {
-        $('overlay.highZ').addClass('hidden');
-        this.hide($('specbox'), 100);
-        $('specbox').removeClass('modal_active');
+      var hideForm = function(){
+        form.addClass('hide');
         $('.needstring').removeClass('available');
         $('.needstring').addClass('unavailable');
-
-      } else {
-        $('overlay.highZ').removeClass('hidden');
-        that.unhide($('specbox'), 100);
-        $('specbox').addClass('modal_active');
-        $('overlay.highZ').on('click', function() {
-          $('overlay.highZ').unbind();
-          that.toggleSpecbox();
-        });
+        //$('body').off('click',this);
       }
+      form.removeClass('hide');
+      setTimeout( function(){
+        $('body').one('click', hideForm);
+      },200);
     },
 
     specAction : function(item, action){
       var that = this;
       actions = {
         'linkForm': function(item) {
-          that.toggleSpecbox();
+          that.showSpecForm($('linkform'));
         },
         'unlink': function(){
           that.currentSelection = document.getSelection(); // get selection

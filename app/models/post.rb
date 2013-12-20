@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :post_date, :user_id, :content_type
+  attr_accessible :post_date, :user_id, :content_type, :private
 
   belongs_to(
     :user,
@@ -39,8 +39,9 @@ class Post < ActiveRecord::Base
   def as_json(post)
     {
       content_type: self.content_type,
-      post_date: self.post_date,
+      post_date: self.post_date.to_formatted_s(:short),
       content: self.content,
+      user_id: self.user_id,
       username: self.user.username,
       id: self.id
     }

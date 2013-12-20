@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   before_save :legit_email
   validates_uniqueness_of :username, :email
 
+  after_initialize :set_avatar
+
   has_many(
     :follows_recieved,
     class_name: 'Follow',
@@ -29,6 +31,10 @@ class User < ActiveRecord::Base
     foreign_key: :user_id,
     primary_key: :id
   )
+
+  def set_avatar
+    self.avatar = Avatar.find(Random.rand(Avatar.count-1)+1).url unless self.avatar
+  end
 
   def legit_email
     raise "Invalid Email" unless self.email && self.email.match(/^.+@.+$/)
@@ -66,7 +72,7 @@ class User < ActiveRecord::Base
 
   def self.find_by_credentials!( user )
     @user = User.find_by_email!(user[:email])
-    raise unless @user.has_password?(user[:password])
+    raise "Invalid Password" unless @user.has_password?(user[:password])
 
     @user
   end

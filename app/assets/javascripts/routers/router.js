@@ -8,9 +8,27 @@ Tumblr.Routers.Main = Backbone.Router.extend({
     'blog/:id' : 'blog'
   },
 
+
+  swapDisplay: function(el, action){
+    $('.top-level').addClass('hidden');
+    setTimeout( function(){
+      $('.top-level').addClass('hide');
+      el.removeClass('hide');
+      el.removeClass('hidden');
+      if( action){
+        action();
+      }
+    }, 400);
+  },
+
+
   posts: function(){
     if(Tumblr.user.get('id')) {
-      Tumblr.topView.dash();
+
+      this.swapDisplay($('topdashview'),
+       function(){
+         Tumblr.topView.dash();
+       });
     } else {
       this.login();
     }
@@ -18,19 +36,26 @@ Tumblr.Routers.Main = Backbone.Router.extend({
 
   login: function(){
     Tumblr.loginView.setBackground();
+    this.swapDisplay($('loginview'));
+
   },
 
   blog: function(id) {
-    Tumblr.blogPosts = new Tumblr.Collections.Posts();
-    Tumblr.blogPosts.url = '/users/'+ id;
-    Tumblr.blogPosts.fetch({
-     success: function(){
-        blogView.render();
+    var that = this;
+
+    $.ajax({
+      url: '/users/'+id,
+      type: 'GET',
+      success: function(resp){
+        Tumblr.blogPosts = new Tumblr.Collections.Posts(resp.posts);
+        Tumblr.blogUser = new Tumblr.Models.User(resp.user);
+        Tumblr.blogView.render();
+        that.swapDisplay($('blogview'));
+
       },
-      error: function(e){
-        console.log(e)
+      error: function(){
+        console.log('noblog');
       }
     });
-    var blogView = new Tumblr.Views.BlogView();
   }
 })
