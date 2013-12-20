@@ -149,7 +149,8 @@ Tumblr.Views.QuickView = Backbone.View.extend({
 
   postFormView: function(template) {
 
-    $('posttemplate').html( JST['form/'+ template ]())
+    var templ = template.toLowerCase();
+    $('posttemplate').html( JST['form/'+ templ]())
     var postTypeViews = {
       'Text': function(){
         return new Tumblr.Views.TextView();
