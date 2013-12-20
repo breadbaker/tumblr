@@ -36,10 +36,14 @@ class Post < ActiveRecord::Base
     !!(self.content)
   end
 
+  def get_post_date
+    return  self.post_date.to_formatted_s(:short) if self.post_date
+  end
+
   def as_json(post)
     {
       content_type: self.content_type,
-      post_date: self.post_date.to_formatted_s(:short) if self.post_date,
+      post_date: get_post_date,
       content: self.content,
       user_id: self.user_id,
       username: self.user.username,
