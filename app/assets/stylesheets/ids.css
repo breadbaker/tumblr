@@ -10,7 +10,7 @@
 }
 #quick-dash quotebubble {
   z-index: 6;
-  min-height: 60px; !important;
+  min-height: 60px;
 }
 
 #htmlEdit {
