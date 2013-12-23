@@ -39,5 +39,7 @@ There are indeed many plugins to do rich text editng ( tinyMCE, nicEdit ...).  A
     
 So I spent a day writing my own [library](https://github.com/breadbaker/Breaditor) for repeated use that fits my needs.  Rome was not built in a day, while functional there are bugs listed in issues.  And it works only in Chrome.
 
+### Nokogiri Content
+
 The content is scraped from popular real tumblr pages and scraped with the gem nokogiri.
 
