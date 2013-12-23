@@ -41,5 +41,5 @@ So I spent a day writing my own [library](https://github.com/breadbaker/Breadito
 
 ### Nokogiri Content
 
-The content is scraped from popular real tumblr pages and scraped with the gem nokogiri.
+The content is scraped from popular real tumblr pages with the gem nokogiri.
 
