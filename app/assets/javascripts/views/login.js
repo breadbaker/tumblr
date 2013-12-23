@@ -11,26 +11,10 @@ Tumblr.Views.LoginView = Backbone.View.extend({
     var that = this;
     $.ajax({
       type: 'POST',
+			data: { 'user': { 'email': 'fake1@fake.com', 'password': 'password'}},
       url: '/sessions',
       success: function(resp) {
         that.setup(resp);
-        // if( resp.user ){
-   //        Tumblr.user.set(resp.user)
-   //        Tumblr.followees = new Tumblr.Collections.Followees(resp.followees);
-   //        Tumblr.followers = new Tumblr.Collections.Followers(resp.followers);
-   //        Tumblr.userPosts = new Tumblr.Collections.Posts();
-   //        Tumblr.userPosts.fetch({
-   //          success: function(){
-   //              Tumblr.user.set(resp.user);
-   //
-   //              Tumblr.topView = new Tumblr.Views.TopView();
-   //              Tumblr.router.posts();
-   //              $('loginview').html('');
-   //          },
-   //          error: function(){
-   //          }
-   //        });
-   //      }
       }
     });
   },
