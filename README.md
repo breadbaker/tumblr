@@ -8,15 +8,16 @@ The live version is up [here](http://tumblr-clone.herokuapp.com/)
 Some of the technologies featured include:
 
 
- # Polymorphic Associations
+# Polymorphic Associations
  
 Posts can be of different types ie: Text, Quote, Photo.
 
 All posts share some datafields ie: post_date, user_id
 
-To avoid having to call:
-    current_user.text_posts and
-    current_user.photo_posts then merging.
+To avoid having to:
+
+    all_posts = current_user.text_posts
+    all_posts = all_posts.merge( current_user.photo_posts ).
     
     the Post Model holds a field 'content_type' which is a string reference to the model name of the content the post holds. Thus to access a posts content I can use: 
     
@@ -26,7 +27,7 @@ To avoid having to call:
       self.content_type.constantize.find_by_post_id(self.id)
     end
     
- # Amazon Cloud Storage.
+# Amazon Cloud Storage.
  
 None of the photos are held on heroku.  Use the paperclip gem to store my photos in a bucket at AWS.
 
