@@ -8,7 +8,7 @@ The live version is up [here](http://tumblr-clone.herokuapp.com/)
 Some of the technologies featured include:
 
 
-# Polymorphic Associations
+## Polymorphic Associations
  
 Posts can be of different types ie: Text, Quote, Photo.
 
@@ -19,7 +19,7 @@ To avoid having to:
     all_posts = current_user.text_posts
     all_posts = all_posts.merge( current_user.photo_posts ).
     
-    the Post Model holds a field 'content_type' which is a string reference to the model name of the content the post holds. Thus to access a posts content I can use: 
+the Post Model holds a field 'content_type' which is a string reference to the model name of the content the post holds. Thus to access a posts content I can use: 
     
     // in post.rb
     def content
@@ -27,11 +27,11 @@ To avoid having to:
       self.content_type.constantize.find_by_post_id(self.id)
     end
     
-# Amazon Cloud Storage.
+## Amazon Cloud Storage.
  
 None of the photos are held on heroku.  Use the paperclip gem to store my photos in a bucket at AWS.
 
- # Rich Text Editor Plugin
+## Rich Text Editor Plugin
  
 There are indeed many plugins to do rich text editng ( tinyMCE, nicEdit ...).  After playing with both a little I discovered that the meat of what they do is centered around this [command](https://developer.mozilla.org/en-US/docs/Web/API/document.execCommand):
 
