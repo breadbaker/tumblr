@@ -67,8 +67,6 @@ Tumblr::Application.configure do
     :storage => :s3,
     :s3_credentials => {
       :bucket => "tumblr-clone",
-      :access_key_id => "AKIAJJ4LLXIXQPHJS4VQ",#"AWS-KEY-ID",
-      :secret_access_key => "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"#"AWS-ACCESS-KEY"
     }
   }
 
