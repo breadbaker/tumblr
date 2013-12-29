@@ -28,7 +28,8 @@ Tumblr.Views.TopView = Backbone.View.extend({
         username: post.get('username'),
         post: post.get('content'),
         date: post.get('post_date'),
-        avatar: avatar
+        avatar: avatar,
+        prettyDate: post.prettyDate()
       });
       $('posts').append(renderedPost);
     });
@@ -50,10 +51,15 @@ Tumblr.Views.TopView = Backbone.View.extend({
   },
 
   dash: function() {
-    $('maincontent').html( JST['main/quick']());
-    this.quickdash = new Tumblr.Views.QuickView();
-    this.renderPosts();
-    this.viewPortion($('dashview'));
+    var that = this;
+    Tumblr.userPosts.fetch({
+      success: function(){
+        $('maincontent').html( JST['main/quick']());
+        that.quickdash = new Tumblr.Views.QuickView();
+        that.renderPosts();
+        that.viewPortion($('dashview'));
+      }
+    });
   },
 
   viewPortion: function(el) {

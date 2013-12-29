@@ -7,13 +7,13 @@
     <ul>
       <li>
         <username>
-          <p  class='font-32 marg-0'>
+          <p  class='font-26 marg-0'>
             <%= Tumblr.user.get('username') %>
           </p>
 
           <input type='text' class='hide hidden' value=" <%= Tumblr.user.get('username') %>">
-          <a class='font-12' href='#blog/<%= Tumblr.user.get("username") %>'>
-            www.tumbler-clone<%= Tumblr.user.get('username') %>
+          <a class='font-8' href='#blog/<%= Tumblr.user.get("username") %>'>
+            www.tumbler-clone/<%= Tumblr.user.get('username') %>
           </a>
         </username>
       </li>

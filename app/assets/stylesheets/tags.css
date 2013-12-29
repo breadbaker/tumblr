@@ -465,5 +465,8 @@ textext img {
 
 postdate {
   float: right;
+  font-size:10px;
+  font-style: italic;
+  color: grey;
   margin-top: -30px;
 }

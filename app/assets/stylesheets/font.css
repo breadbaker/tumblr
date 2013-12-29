@@ -10,6 +10,9 @@ body {
   font-size: 32px;
 }
 
+.font-26 {
+  font-size: 26px;
+}
 .font-42 {
   font-size: 42px;
 }
@@ -17,7 +20,9 @@ body {
 .font-14 {
   font-size: 14px;
 }
-
+.font-8 {
+  font-size: 10px;
+}
 .font-12 {
   font-size:12px;
 }

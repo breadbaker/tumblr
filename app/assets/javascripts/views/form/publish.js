@@ -36,6 +36,7 @@ Tumblr.Views.PublishView = Backbone.View.extend({
     this.hideShow($('posttemplate'),$('quickdashbubble'),400);
     this.empty($('posttemplate'),400);
     Tumblr.postViewForm = null;
+    Tumblr.topView.dash();
   },
 
   save: function(){

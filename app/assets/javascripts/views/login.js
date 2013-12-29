@@ -94,6 +94,21 @@ Tumblr.Views.LoginView = Backbone.View.extend({
       that.send();
        e.preventDefault();
     });
+    $('loginview').delegate('#murray', 'click', function(e){
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '/sessions',
+        data: {user:{ email: 'fake4@fake.com', password: 'password'}},
+        success: function(resp) {
+          that.setup(resp);
+        },
+        error: function(r) {
+          console.log(r);
+          that.messageFail("Invalid Login", 3000);
+        }
+      });
+    });
     $('loginview').delegate('roundfrom input', 'keypress', function(e){
       if (e.keyCode == 13){
         e.preventDefault();
